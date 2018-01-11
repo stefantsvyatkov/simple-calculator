@@ -31,9 +31,9 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this.numberLabel = new System.Windows.Forms.Label();
             this.clear = new System.Windows.Forms.Button();
-            this.Add = new System.Windows.Forms.Button();
-            this.Subtract = new System.Windows.Forms.Button();
-            this.Multiply = new System.Windows.Forms.Button();
+            this.add = new System.Windows.Forms.Button();
+            this.subtract = new System.Windows.Forms.Button();
+            this.multiply = new System.Windows.Forms.Button();
             this.divide = new System.Windows.Forms.Button();
             this.result = new System.Windows.Forms.Button();
             this.numberText = new System.Windows.Forms.TextBox();
@@ -52,26 +52,26 @@
             this.clear.UseVisualStyleBackColor = true;
             this.clear.Click += new System.EventHandler(this.Clear_Click);
             // 
-            // Add
+            // add
             // 
-            resources.ApplyResources(this.Add, "Add");
-            this.Add.Name = "Add";
-            this.Add.UseVisualStyleBackColor = true;
-            this.Add.Click += new System.EventHandler(this.Add_Click);
+            resources.ApplyResources(this.add, "add");
+            this.add.Name = "add";
+            this.add.UseVisualStyleBackColor = true;
+            this.add.Click += new System.EventHandler(this.Add_Click);
             // 
-            // Subtract
+            // subtract
             // 
-            resources.ApplyResources(this.Subtract, "Subtract");
-            this.Subtract.Name = "Subtract";
-            this.Subtract.UseVisualStyleBackColor = true;
-            this.Subtract.Click += new System.EventHandler(this.Subtract_Click);
+            resources.ApplyResources(this.subtract, "subtract");
+            this.subtract.Name = "subtract";
+            this.subtract.UseVisualStyleBackColor = true;
+            this.subtract.Click += new System.EventHandler(this.Subtract_Click);
             // 
-            // Multiply
+            // multiply
             // 
-            resources.ApplyResources(this.Multiply, "Multiply");
-            this.Multiply.Name = "Multiply";
-            this.Multiply.UseVisualStyleBackColor = true;
-            this.Multiply.Click += new System.EventHandler(this.Multiply_Click);
+            resources.ApplyResources(this.multiply, "multiply");
+            this.multiply.Name = "multiply";
+            this.multiply.UseVisualStyleBackColor = true;
+            this.multiply.Click += new System.EventHandler(this.Multiply_Click);
             // 
             // divide
             // 
@@ -108,14 +108,14 @@
             this.Controls.Add(this.numberText);
             this.Controls.Add(this.result);
             this.Controls.Add(this.divide);
-            this.Controls.Add(this.Multiply);
-            this.Controls.Add(this.Subtract);
-            this.Controls.Add(this.Add);
+            this.Controls.Add(this.multiply);
+            this.Controls.Add(this.subtract);
+            this.Controls.Add(this.add);
             this.Controls.Add(this.clear);
             this.Controls.Add(this.numberLabel);
             this.KeyPreview = true;
             this.Name = "Form1";
-            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Form1_Close);
+            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Form1_KeyShortcuts);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -125,9 +125,9 @@
 
         private System.Windows.Forms.Label numberLabel;
         private System.Windows.Forms.Button clear;
-        private System.Windows.Forms.Button Add;
-        private System.Windows.Forms.Button Subtract;
-        private System.Windows.Forms.Button Multiply;
+        private System.Windows.Forms.Button add;
+        private System.Windows.Forms.Button subtract;
+        private System.Windows.Forms.Button multiply;
         private System.Windows.Forms.Button divide;
         private System.Windows.Forms.Button result;
         private System.Windows.Forms.TextBox numberText;

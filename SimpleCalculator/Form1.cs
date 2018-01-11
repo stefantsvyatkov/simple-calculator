@@ -15,16 +15,49 @@ public partial class Form1: Form
     {
         public Form1()
         {
+            System.Threading.Thread.CurrentThread.CurrentUICulture =
+    System.Globalization.CultureInfo.GetCultureInfo("en");
             InitializeComponent();
         }
         
-        private void Form1_Close(object sender, KeyEventArgs e)
+        private void Form1_KeyShortcuts(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Escape)
             {
+                e.SuppressKeyPress = true;
                 this.Close();
             }
-        }
+            if (e.Modifiers == Keys.Alt && e.KeyCode == Keys.A)
+            {
+                e.SuppressKeyPress = true;
+                add.PerformClick();
+            }
+            if (e.Modifiers == Keys.Alt && e.KeyCode == Keys.S)
+            {
+                e.SuppressKeyPress = true;
+                subtract.PerformClick();
+            }
+            if (e.Modifiers == Keys.Alt && e.KeyCode == Keys.M)
+            {
+                e.SuppressKeyPress = true;
+                multiply.PerformClick();
+            }
+            if (e.Modifiers == Keys.Alt && e.KeyCode == Keys.D)
+            {
+                e.SuppressKeyPress = true;
+                divide.PerformClick();
+            }
+            if (e.Modifiers == Keys.Alt && e.KeyCode == Keys.P)
+            {
+                e.SuppressKeyPress = true;
+                percent.PerformClick();
+            }
+            if (e.Modifiers == Keys.Alt && e.KeyCode == Keys.C)
+            {
+                e.SuppressKeyPress = true;
+                clear.PerformClick();
+            }
+            }
         
         double currentNum = double.MinValue;
         double resultNum = 0;
@@ -110,27 +143,7 @@ private void Add_Click(object sender, EventArgs e)
                     resultNum = double.Parse(numberText.Text);
                     invalidNumberEntered = false;
                 }
-                if (operation == "+")
-                {
-                  currentNum += resultNum;
-                }
-                if (operation == "-")
-                {
-                    currentNum -= resultNum;
-                }
-                if (operation == "*")
-                {
-                    currentNum *= resultNum;
-                }
-                if (operation == "/")
-                {
-                    currentNum /= resultNum;
-                }
-                if (operation == "%")
-                {
-                   currentNum /= 100.0;
-                    currentNum *= resultNum;
-                    }
+               currentNum = MakeCalculation(operation, currentNum, resultNum);
 numberText.Visible = false;
                 numberText.Visible = true;
 numberText.Text = currentNum.ToString("0.##");
@@ -138,11 +151,33 @@ numberText.Text = currentNum.ToString("0.##");
             }
 }
 
+        private double MakeCalculation(string operation, double currentNum, double resultNum)
+        {
+            switch (operation)
+            {
+                case "+":
+                    currentNum += resultNum;
+                    break;
+                case "-":
+                    currentNum -= resultNum;
+                    break;
+                case "*":
+                    currentNum *= resultNum;
+                    break;
+                case "/":
+                    currentNum /= resultNum;
+                    break;
+                case "%":
+                    currentNum /= 100.0;
+                    currentNum *= resultNum;
+                    break;
+            }
+            return currentNum;
+        }
+
         private bool CheckInputValidation(string str)
         {
-#pragma warning disable IDE0018 // Inline variable declaration
             double num;
-#pragma warning restore IDE0018 // Inline variable declaration
             bool checker = double.TryParse(str, out num);
             return checker;
         }
