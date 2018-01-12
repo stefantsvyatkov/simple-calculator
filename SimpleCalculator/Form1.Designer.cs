@@ -114,11 +114,10 @@
             this.Controls.Add(this.clear);
             this.Controls.Add(this.numberLabel);
             this.KeyPreview = true;
+            this.KeyDown += new System.Windows.Forms.KeyEventHandler(Form1_Close);
             this.Name = "Form1";
-            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Form1_KeyShortcuts);
             this.ResumeLayout(false);
             this.PerformLayout();
-
         }
 
         #endregion

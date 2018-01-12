@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Globalization;
+using System.Threading;
 
 namespace SimpleCalculator
 {
@@ -16,51 +17,21 @@ public partial class Form1: Form
         public Form1()
         {
             System.Threading.Thread.CurrentThread.CurrentUICulture =
-    System.Globalization.CultureInfo.GetCultureInfo("en");
+                System.Globalization.CultureInfo.GetCultureInfo("en");
             InitializeComponent();
         }
-        
-        private void Form1_KeyShortcuts(object sender, KeyEventArgs e)
+
+        private void Form1_Close(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Escape)
             {
                 e.SuppressKeyPress = true;
                 this.Close();
             }
-            if (e.Modifiers == Keys.Alt && e.KeyCode == Keys.A)
-            {
-                e.SuppressKeyPress = true;
-                add.PerformClick();
-            }
-            if (e.Modifiers == Keys.Alt && e.KeyCode == Keys.S)
-            {
-                e.SuppressKeyPress = true;
-                subtract.PerformClick();
-            }
-            if (e.Modifiers == Keys.Alt && e.KeyCode == Keys.M)
-            {
-                e.SuppressKeyPress = true;
-                multiply.PerformClick();
-            }
-            if (e.Modifiers == Keys.Alt && e.KeyCode == Keys.D)
-            {
-                e.SuppressKeyPress = true;
-                divide.PerformClick();
-            }
-            if (e.Modifiers == Keys.Alt && e.KeyCode == Keys.P)
-            {
-                e.SuppressKeyPress = true;
-                percent.PerformClick();
-            }
-            if (e.Modifiers == Keys.Alt && e.KeyCode == Keys.C)
-            {
-                e.SuppressKeyPress = true;
-                clear.PerformClick();
-            }
-            }
-        
-        double currentNum = double.MinValue;
-        double resultNum = 0;
+        }
+
+        decimal currentNum = decimal.MinValue;
+        decimal resultNum = 0m;
        string operation = string.Empty;
         int resultPressCount = 0;
 
@@ -73,7 +44,7 @@ public partial class Form1: Form
             }
             else
             {
-                currentNum = double.Parse(numberText.Text);
+                currentNum = decimal.Parse(numberText.Text);
             }
 numberText.Text = string.Empty;
             numberText.Focus();
@@ -81,8 +52,8 @@ numberText.Text = string.Empty;
 
             private void Clear_Click(object sender, EventArgs e)
         {
-            currentNum = double.MinValue;
-            resultNum = double.MinValue;
+            currentNum = decimal.MinValue;
+            resultNum = decimal.MinValue;
             operation = string.Empty;
             numberText.Text = string.Empty;
             numberText.Focus();
@@ -123,7 +94,7 @@ private void Add_Click(object sender, EventArgs e)
         private void Result_Click(object sender, EventArgs e)
         {
             resultPressCount++;
-            if (currentNum == double.MinValue || operation == string.Empty || (resultPressCount > 1 && !invalidNumberEntered))
+            if (currentNum == decimal.MinValue || operation == string.Empty || (resultPressCount > 1 && !invalidNumberEntered))
             {
                 ShowMakeOperationMessage();
                 numberText.Focus();
@@ -140,7 +111,7 @@ private void Add_Click(object sender, EventArgs e)
                 }
                 else
                 {
-                    resultNum = double.Parse(numberText.Text);
+                    resultNum = decimal.Parse(numberText.Text);
                     invalidNumberEntered = false;
                 }
                currentNum = MakeCalculation(operation, currentNum, resultNum);
@@ -148,10 +119,10 @@ numberText.Visible = false;
                 numberText.Visible = true;
 numberText.Text = currentNum.ToString("0.##");
                 numberText.Focus();
-            }
+                }
 }
 
-        private double MakeCalculation(string operation, double currentNum, double resultNum)
+        private decimal MakeCalculation(string operation, decimal currentNum, decimal resultNum)
         {
             switch (operation)
             {
@@ -168,7 +139,7 @@ numberText.Text = currentNum.ToString("0.##");
                     currentNum /= resultNum;
                     break;
                 case "%":
-                    currentNum /= 100.0;
+                    currentNum /= 100.0m;
                     currentNum *= resultNum;
                     break;
             }
@@ -177,8 +148,8 @@ numberText.Text = currentNum.ToString("0.##");
 
         private bool CheckInputValidation(string str)
         {
-            double num;
-            bool checker = double.TryParse(str, out num);
+            decimal num;
+            bool checker = decimal.TryParse(str, out num);
             return checker;
         }
 
