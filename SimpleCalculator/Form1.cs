@@ -154,6 +154,7 @@ private void Add_Click(object sender, EventArgs e)
             bool checker = true;
             char separator = Convert.ToChar(CultureInfo.CurrentCulture.NumberFormat.NumberDecimalSeparator);
             char[] operators = new char[] { '+', '-', '*', '/', '%' };
+            int operatorsCount = 0;
             for (int i = 0; i < text.Length; i++)
             {
                 if (!char.IsNumber(text[i]) && text[i] != separator && !operators.Contains(text[i]))
@@ -161,8 +162,12 @@ private void Add_Click(object sender, EventArgs e)
                     checker = false;
                     break;
                 }
+                if (operators.Contains(text[i]))
+                {
+                    operatorsCount++;
+                }
             }
-            if (text == string.Empty)
+            if (text == string.Empty || operatorsCount > 1)
             {
                 checker = false;
             }
@@ -215,17 +220,17 @@ private void ShowInvalidNumberMessage()
         private bool CheckTextForOperator(string text)
         {
             bool checker = false;
-            int operatorCount = 0;
             for (int i = 0; i < text.Length; i++)
             {
                 if (text[i] == '+' || text[i] == '-' || text[i] == '*' || text[i] == '/' || text[i] == '%')
                 {
-                    operatorCount++;
+                    checker = true;
+                    break;
                 }
             }
-            if (operatorCount == 1 && GetOperatorIndex(text) != text.Length - 1)
+            if (GetOperatorIndex(text) == text.Length - 1)
             {
-                checker = true;
+                checker = false;
             }
             return checker;
         }
