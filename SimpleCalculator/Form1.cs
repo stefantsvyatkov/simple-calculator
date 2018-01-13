@@ -16,8 +16,8 @@ public partial class Form1: Form
     {
         public Form1()
         {
-            System.Threading.Thread.CurrentThread.CurrentUICulture =
-                System.Globalization.CultureInfo.GetCultureInfo("en");
+            //System.Threading.Thread.CurrentThread.CurrentUICulture =
+            //    System.Globalization.CultureInfo.GetCultureInfo("en");
             InitializeComponent();
         }
 
@@ -30,30 +30,31 @@ public partial class Form1: Form
             }
         }
 
-        decimal currentNum = decimal.MinValue;
-        decimal resultNum = 0m;
+        decimal currentNum = 0;
+        decimal resultNum = 0;
        string operation = string.Empty;
-        int resultPressCount = 0;
+        bool operationMade = false;
 
         private void GetCurrentNumber()
         {
-            resultPressCount = 0;
             if (!CheckInputValidation(numberText.Text))
             {
                 ShowInvalidNumberMessage();
             }
             else
             {
+                operationMade = true;
                 currentNum = decimal.Parse(numberText.Text);
-            }
+                }
 numberText.Text = string.Empty;
             numberText.Focus();
         }
 
             private void Clear_Click(object sender, EventArgs e)
         {
-            currentNum = decimal.MinValue;
-            resultNum = decimal.MinValue;
+            currentNum = 0;
+            resultNum = 0;
+            operationMade = false;
             operation = string.Empty;
             numberText.Text = string.Empty;
             numberText.Focus();
@@ -88,39 +89,41 @@ private void Add_Click(object sender, EventArgs e)
             operation = "%";
             GetCurrentNumber();
 }
-
-        bool invalidNumberEntered = false;
-
+        
         private void Result_Click(object sender, EventArgs e)
         {
-            resultPressCount++;
-            if (currentNum == decimal.MinValue || operation == string.Empty || (resultPressCount > 1 && !invalidNumberEntered))
+            if (!CheckInputValidation(numberText.Text))
+            {
+                ShowInvalidNumberMessage();
+                numberText.Focus();
+                numberText.Text = string.Empty;
+                return;
+            }
+            if (CheckTextForOperator(numberText.Text))
+            {
+                operationMade = true;
+                operation = numberText.Text[GetOperatorIndex(numberText.Text)].ToString();
+                resultNum = decimal.Parse(numberText.Text.Substring(GetOperatorIndex(numberText.Text) + 1, (numberText.Text.Length - 1) - GetOperatorIndex(numberText.Text)));
+                if (GetOperatorIndex(numberText.Text) > 0)
+                {
+                    currentNum = decimal.Parse(numberText.Text.Substring(0, GetOperatorIndex(numberText.Text)));
+                }
+                currentNum = MakeCalculation(operation, currentNum, resultNum);
+                ShowResultOutput();
+                operationMade = false;
+                return;
+            }
+            if (currentNum == 0 || operation == string.Empty || !operationMade)
             {
                 ShowMakeOperationMessage();
                 numberText.Focus();
+                return;
             }
-            else
-            {
-                if (!CheckInputValidation(numberText.Text))
-                {
-                    ShowInvalidNumberMessage();
-                    invalidNumberEntered = true;
-                    numberText.Focus();
-                    numberText.Text = string.Empty;
-                    return;
+                resultNum = decimal.Parse(numberText.Text);
+                currentNum = MakeCalculation(operation, currentNum, resultNum);
+                ShowResultOutput();
+            operationMade = false;
                 }
-                else
-                {
-                    resultNum = decimal.Parse(numberText.Text);
-                    invalidNumberEntered = false;
-                }
-               currentNum = MakeCalculation(operation, currentNum, resultNum);
-numberText.Visible = false;
-                numberText.Visible = true;
-numberText.Text = currentNum.ToString("0.##");
-                numberText.Focus();
-                }
-}
 
         private decimal MakeCalculation(string operation, decimal currentNum, decimal resultNum)
         {
@@ -146,12 +149,25 @@ numberText.Text = currentNum.ToString("0.##");
             return currentNum;
         }
 
-        private bool CheckInputValidation(string str)
+        private bool CheckInputValidation(string text)
         {
-            decimal num;
-            bool checker = decimal.TryParse(str, out num);
+            bool checker = true;
+            char separator = Convert.ToChar(CultureInfo.CurrentCulture.NumberFormat.NumberDecimalSeparator);
+            char[] operators = new char[] { '+', '-', '*', '/', '%' };
+            for (int i = 0; i < text.Length; i++)
+            {
+                if (!char.IsNumber(text[i]) && text[i] != separator && !operators.Contains(text[i]))
+                {
+                    checker = false;
+                    break;
+                }
+            }
+            if (text == string.Empty)
+            {
+                checker = false;
+            }
             return checker;
-        }
+}
 
 private void ShowInvalidNumberMessage()
         {
@@ -176,6 +192,51 @@ private void ShowInvalidNumberMessage()
             }
             MessageBox.Show(messageStr, messageTitle, MessageBoxButtons.OK, MessageBoxIcon.Error);
 }
+
+        private int GetOperatorIndex(string text)
+        {
+            int index = 0;
+            for (int i = 0; i < text.Length; i++)
+            {
+                switch (text[i])
+                {
+                    case '+':
+                    case '-':
+                    case '*':
+                    case '/':
+                    case '%':
+                       index = i;
+                        break;
+                        }
+            }
+            return index;
 }
+
+        private bool CheckTextForOperator(string text)
+        {
+            bool checker = false;
+            int operatorCount = 0;
+            for (int i = 0; i < text.Length; i++)
+            {
+                if (text[i] == '+' || text[i] == '-' || text[i] == '*' || text[i] == '/' || text[i] == '%')
+                {
+                    operatorCount++;
+                }
+            }
+            if (operatorCount == 1 && GetOperatorIndex(text) != text.Length - 1)
+            {
+                checker = true;
+            }
+            return checker;
+        }
+
+        private void ShowResultOutput()
+        {
+            numberText.Visible = false;
+            numberText.Visible = true;
+            numberText.Text = currentNum.ToString("0.##");
+            numberText.Focus();
+}
+    }
 }
                     
