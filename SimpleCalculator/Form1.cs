@@ -9,6 +9,9 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Globalization;
 using System.Threading;
+using System.Resources;
+using System.Reflection;
+
 
 namespace SimpleCalculator
 {
@@ -17,10 +20,12 @@ public partial class Form1: Form
         public Form1()
         {
             //System.Threading.Thread.CurrentThread.CurrentUICulture =
-            //    System.Globalization.CultureInfo.GetCultureInfo("en");
+            //System.Globalization.CultureInfo.GetCultureInfo("en");
             InitializeComponent();
         }
 
+        ResourceManager messagesRM = new ResourceManager("SimpleCalculator.ProjectResource", Assembly.GetExecutingAssembly());
+        
         private void Form1_Close(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Escape)
@@ -176,25 +181,15 @@ private void Add_Click(object sender, EventArgs e)
 
 private void ShowInvalidNumberMessage()
         {
-                string messageStr = "Please enter a valid number!";
-            string messageTitle = "Error";
-                if (CultureInfo.CurrentUICulture.Name == "bg-BG")
-                {
-                    messageStr = "Моля въведете валидно число!";
-                messageTitle = "Грешка";
-                }
+                string messageStr = messagesRM.GetString("invalidNumberMessageText");
+            string messageTitle = messagesRM.GetString("errorTitle");
                 MessageBox.Show(messageStr, messageTitle, MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
 
         private void ShowMakeOperationMessage()
         {
-            string messageStr = "Please make an operation!";
-            string messageTitle = "Error";
-            if (CultureInfo.CurrentUICulture.Name == "bg-BG")
-            {
-                messageStr = "Моля извършете операция!";
-                messageTitle = "Грешка";
-            }
+            string messageStr = messagesRM.GetString("makeOperationMessageText");
+            string messageTitle = messagesRM.GetString("errorTitle");
             MessageBox.Show(messageStr, messageTitle, MessageBoxButtons.OK, MessageBoxIcon.Error);
 }
 
