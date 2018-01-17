@@ -38,6 +38,7 @@
             this.result = new System.Windows.Forms.Button();
             this.numberText = new System.Windows.Forms.TextBox();
             this.percent = new System.Windows.Forms.Button();
+            this.toolStripComboBox1 = new System.Windows.Forms.ToolStripComboBox();
             this.SuspendLayout();
             // 
             // numberLabel
@@ -91,6 +92,7 @@
             // 
             resources.ApplyResources(this.numberText, "numberText");
             this.numberText.Name = "numberText";
+            this.numberText.ShortcutsEnabled = false;
             // 
             // percent
             // 
@@ -98,6 +100,11 @@
             this.percent.Name = "percent";
             this.percent.UseVisualStyleBackColor = true;
             this.percent.Click += new System.EventHandler(this.Percent_Click);
+            // 
+            // toolStripComboBox1
+            // 
+            this.toolStripComboBox1.Name = "toolStripComboBox1";
+            resources.ApplyResources(this.toolStripComboBox1, "toolStripComboBox1");
             // 
             // Form1
             // 
@@ -114,10 +121,11 @@
             this.Controls.Add(this.clear);
             this.Controls.Add(this.numberLabel);
             this.KeyPreview = true;
-            this.KeyDown += new System.Windows.Forms.KeyEventHandler(Form1_Close);
             this.Name = "Form1";
+            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Form1_Close);
             this.ResumeLayout(false);
             this.PerformLayout();
+
         }
 
         #endregion
@@ -131,6 +139,7 @@
         private System.Windows.Forms.Button result;
         private System.Windows.Forms.TextBox numberText;
         private System.Windows.Forms.Button percent;
+        private System.Windows.Forms.ToolStripComboBox toolStripComboBox1;
     }
 }
 

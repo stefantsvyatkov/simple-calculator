@@ -117,13 +117,40 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="cancelButton" xml:space="preserve">
+    <value>&amp;Cancel</value>
+  </data>
   <data name="errorTitle" xml:space="preserve">
     <value>Error</value>
+  </data>
+  <data name="hideButtonsMenuItem" xml:space="preserve">
+    <value>Hide operation buttons</value>
   </data>
   <data name="invalidNumberMessageText" xml:space="preserve">
     <value>Please enter a valid number</value>
   </data>
+  <data name="languageBulgarian" xml:space="preserve">
+    <value>Bulgarian</value>
+  </data>
+  <data name="languageComboBoxName" xml:space="preserve">
+    <value>&amp;Language</value>
+  </data>
+  <data name="languageEnglish" xml:space="preserve">
+    <value>English</value>
+  </data>
+  <data name="languageFormTitle" xml:space="preserve">
+    <value>Language</value>
+  </data>
+  <data name="languageMenuItem" xml:space="preserve">
+    <value>Choose language</value>
+  </data>
   <data name="makeOperationMessageText" xml:space="preserve">
     <value>Please make an operation</value>
+  </data>
+  <data name="okButton" xml:space="preserve">
+    <value>&amp;OK</value>
+  </data>
+  <data name="showButtonsMenuItem" xml:space="preserve">
+    <value>Show operation buttons</value>
   </data>
 </root>
