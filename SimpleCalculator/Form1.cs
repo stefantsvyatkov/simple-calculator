@@ -14,14 +14,13 @@ using System.Reflection;
 
 namespace SimpleCalculator
 {
+    
 public partial class Form1: Form
     {
-
-        public string appCurrentLanguage = Properties.Settings.Default.appLanguage;
-
         public Form1()
         {
-            System.Threading.Thread.CurrentThread.CurrentUICulture = new CultureInfo(appCurrentLanguage);
+            Properties.Settings.Default.defaultCulture = CultureInfo.CurrentUICulture;
+            CultureInfo.CurrentUICulture = Properties.Settings.Default.appLanguage;
             InitializeComponent();
             if (Properties.Settings.Default.buttonsHidden)
             {
@@ -52,7 +51,14 @@ public partial class Form1: Form
             myMenu.Items.Add(chooseLanguage);
         }
 
-private void MyMenu_Closed(object sender, ToolStripDropDownClosedEventArgs e)
+        private void CreateResetSettingsMenuItem()
+        {
+            ToolStripMenuItem resetSettings = new ToolStripMenuItem(rm.GetString("resetSettingsMenuItem"));
+            resetSettings.Click += new EventHandler(ResetSettings_Click);
+            myMenu.Items.Add(resetSettings);
+        }
+
+        private void MyMenu_Closed(object sender, ToolStripDropDownClosedEventArgs e)
         {
             myMenu.Items.Clear();
             CreateLanguageMenuItem();
@@ -60,7 +66,7 @@ private void MyMenu_Closed(object sender, ToolStripDropDownClosedEventArgs e)
 
         private void MyMenu_Opened(object sender, EventArgs e)
         {
-            if (hideButtonsClicked)
+            if (Properties.Settings.Default.buttonsHidden)
             {
                 ToolStripMenuItem showButtons = new ToolStripMenuItem(rm.GetString("showButtonsMenuItem"));
                 showButtons.Click += new EventHandler(ShowButtons_click);
@@ -72,15 +78,17 @@ private void MyMenu_Closed(object sender, ToolStripDropDownClosedEventArgs e)
                 hideButtons.Click += new EventHandler(HideButtons_click);
                 myMenu.Items.Add(hideButtons);
             }
-        }
-        
+            if ((Properties.Settings.Default.appLanguage.TwoLetterISOLanguageName != Properties.Settings.Default.defaultCulture.TwoLetterISOLanguageName) || Properties.Settings.Default.buttonsHidden)
+            {
+                CreateResetSettingsMenuItem();
+            }
+            }
+
         private void ChooseLanguage_Click(object sender, EventArgs e)
         {
             Form2 languageForm = new Form2();
             languageForm.Show();
         }
-
-        bool hideButtonsClicked = Properties.Settings.Default.buttonsHidden;
 
         private void HideButtons_click(object sender, EventArgs e)
         {
@@ -107,8 +115,22 @@ private void MyMenu_Closed(object sender, ToolStripDropDownClosedEventArgs e)
                 result.Location = new Point(80, 200);
             Properties.Settings.Default.Save();
             }
-        
-      ResourceManager rm = new ResourceManager("SimpleCalculator.ProjectResource", Assembly.GetExecutingAssembly());
+
+        private void ResetSettings_Click(object sender, EventArgs e)
+        {
+            Form2 frm = new Form2();
+            DialogResult questionResult = frm.ShowQuestionMessage();
+            if (questionResult == DialogResult.Yes)
+            {
+Properties.Settings.Default.appLanguage = Properties.Settings.Default.defaultCulture;
+                Properties.Settings.Default.buttonsHidden = false;
+                Properties.Settings.Default.Save();
+                frm.ShowInformationMessage();
+                Application.Restart();
+            }
+        }
+
+     ResourceManager rm = new ResourceManager("SimpleCalculator.ProjectResource", Assembly.GetExecutingAssembly());
         
         private void Form1_Close(object sender, KeyEventArgs e)
         {

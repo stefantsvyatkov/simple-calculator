@@ -20,7 +20,7 @@ namespace SimpleCalculator
         {
             InitializeComponent();
             this.Text = rm.GetString("languageFormTitle");
-            language.AccessibleName = rm.GetString("languageFormTitle");
+            language.Sorted = true;
             language.Items.Add(rm.GetString("languageBulgarian"));
             language.Items.Add(rm.GetString("languageEnglish"));
             language.SelectedIndex = 0;
@@ -39,15 +39,52 @@ namespace SimpleCalculator
         {
             if (language.SelectedItem.ToString() == rm.GetString("languageEnglish"))
             {
-                Properties.Settings.Default.appLanguage = "en";
+                if (CultureInfo.CurrentUICulture.TwoLetterISOLanguageName == "bg")
+                {
+                Properties.Settings.Default.appLanguage = CultureInfo.CreateSpecificCulture("en");
                 }
+            }
             else
             {
-                Properties.Settings.Default.appLanguage = "bg";
+                if (Properties.Settings.Default.appLanguage.TwoLetterISOLanguageName != "bg")
+                {
+                Properties.Settings.Default.appLanguage = CultureInfo.CreateSpecificCulture("bg");
                 }
+            }
             Properties.Settings.Default.Save();
-            Application.Restart();
-        }
+            if (CultureInfo.CurrentUICulture.TwoLetterISOLanguageName != Properties.Settings.Default.appLanguage.TwoLetterISOLanguageName)
+            {
+                DialogResult questionResult = ShowQuestionMessage();
+                if (questionResult == DialogResult.Yes)
+                {
+                    ShowInformationMessage();
+Application.Restart();
+}
+                if (questionResult == DialogResult.No)
+                {
+                    cancel.PerformClick();
+                }
+            }
+            else
+            {
+                cancel.PerformClick();
+            }
+            }
+
+        public DialogResult ShowQuestionMessage()
+        {
+            string messageStr = rm.GetString("questionText");
+            string messageTitle = rm.GetString("questionTitle");
+          DialogResult result = MessageBox.Show(messageStr, messageTitle, MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+            return result;
+}
+
+       public void ShowInformationMessage()
+        {
+            string messageStr = rm.GetString("informationMessageText");
+            string messageTitle = rm.GetString("informationMessageTitle");
+            MessageBox.Show(messageStr, messageTitle, MessageBoxButtons.OK, MessageBoxIcon.Information);
+}
 
     }
 }

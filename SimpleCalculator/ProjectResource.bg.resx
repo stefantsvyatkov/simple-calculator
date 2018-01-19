@@ -126,6 +126,12 @@
   <data name="hideButtonsMenuItem" xml:space="preserve">
     <value>Скрий бутоните за числови операции</value>
   </data>
+  <data name="informationMessageText" xml:space="preserve">
+    <value>Програмата ще бъде рестартирана</value>
+  </data>
+  <data name="informationMessageTitle" xml:space="preserve">
+    <value>Съобщение</value>
+  </data>
   <data name="invalidNumberMessageText" xml:space="preserve">
     <value>Моля въведете валидно число</value>
   </data>
@@ -143,6 +149,15 @@
   </data>
   <data name="makeOperationMessageText" xml:space="preserve">
     <value>Моля извършете операция</value>
+  </data>
+  <data name="questionText" xml:space="preserve">
+    <value>Сигурни ли сте?</value>
+  </data>
+  <data name="questionTitle" xml:space="preserve">
+    <value>Въпрос</value>
+  </data>
+  <data name="resetSettingsMenuItem" xml:space="preserve">
+    <value>Възстанови настройките по подразбиране</value>
   </data>
   <data name="showButtonsMenuItem" xml:space="preserve">
     <value>Покажи бутоните за числови операции</value>

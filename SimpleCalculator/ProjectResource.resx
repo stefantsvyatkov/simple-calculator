@@ -126,6 +126,12 @@
   <data name="hideButtonsMenuItem" xml:space="preserve">
     <value>Hide operation buttons</value>
   </data>
+  <data name="informationMessageText" xml:space="preserve">
+    <value>The program will be restarted</value>
+  </data>
+  <data name="informationMessageTitle" xml:space="preserve">
+    <value>Message</value>
+  </data>
   <data name="invalidNumberMessageText" xml:space="preserve">
     <value>Please enter a valid number</value>
   </data>
@@ -149,6 +155,15 @@
   </data>
   <data name="okButton" xml:space="preserve">
     <value>&amp;OK</value>
+  </data>
+  <data name="questionText" xml:space="preserve">
+    <value>Are you sure?</value>
+  </data>
+  <data name="questionTitle" xml:space="preserve">
+    <value>Question</value>
+  </data>
+  <data name="resetSettingsMenuItem" xml:space="preserve">
+    <value>Reset default settings</value>
   </data>
   <data name="showButtonsMenuItem" xml:space="preserve">
     <value>Show operation buttons</value>
