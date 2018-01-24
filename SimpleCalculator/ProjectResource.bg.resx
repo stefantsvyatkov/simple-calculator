@@ -127,13 +127,13 @@
     <value>Скрий бутоните за числови операции</value>
   </data>
   <data name="informationMessageText" xml:space="preserve">
-    <value>Програмата ще бъде рестартирана</value>
+    <value>Програмата ще бъде рестартирана.</value>
   </data>
   <data name="informationMessageTitle" xml:space="preserve">
     <value>Съобщение</value>
   </data>
   <data name="invalidNumberMessageText" xml:space="preserve">
-    <value>Моля въведете валидно число</value>
+    <value>Моля въведете валидно число.</value>
   </data>
   <data name="languageBulgarian" xml:space="preserve">
     <value>Български</value>
@@ -148,7 +148,7 @@
     <value>Избери език</value>
   </data>
   <data name="makeOperationMessageText" xml:space="preserve">
-    <value>Моля извършете операция</value>
+    <value>Моля извършете операция.</value>
   </data>
   <data name="questionText" xml:space="preserve">
     <value>Сигурни ли сте?</value>
@@ -163,7 +163,7 @@
     <value>Покажи бутоните за числови операции</value>
   </data>
   <data name="welcomeMessageText" xml:space="preserve">
-    <value>В следващия прозорец ще бъдете подканени да изберете езика по подразбиране на програмата</value>
+    <value>В следващия прозорец ще бъдете подканени да изберете езика по подразбиране на програмата.</value>
   </data>
   <data name="welcomeMessageTitle" xml:space="preserve">
     <value>Добре дошли!</value>

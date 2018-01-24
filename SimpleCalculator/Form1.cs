@@ -35,8 +35,8 @@ public partial class Form1: Form
         }
 
         ContextMenuStrip myMenu = new ContextMenuStrip();
-
-        private void CreateContextMenu()
+        
+private void CreateContextMenu()
         {
             CreateLanguageMenuItem();
             myMenu.Opened += new EventHandler(MyMenu_Opened);
@@ -59,12 +59,6 @@ public partial class Form1: Form
             myMenu.Items.Add(resetSettings);
         }
 
-        private void MyMenu_Closed(object sender, ToolStripDropDownClosedEventArgs e)
-        {
-            myMenu.Items.Clear();
-            CreateLanguageMenuItem();
-        }
-
         private void MyMenu_Opened(object sender, EventArgs e)
         {
             if (Properties.Settings.Default.buttonsHidden)
@@ -76,7 +70,7 @@ public partial class Form1: Form
             else
             {
                 ToolStripMenuItem hideButtons = new ToolStripMenuItem(rm.GetString("hideButtonsMenuItem"));
-                hideButtons.Click += new EventHandler(HideButtons_click);
+hideButtons.Click += new EventHandler(HideButtons_click);
                 myMenu.Items.Add(hideButtons);
             }
             if ((Properties.Settings.Default.appLanguage != Properties.Settings.Default.defaultCulture) || Properties.Settings.Default.buttonsHidden)
@@ -84,6 +78,12 @@ public partial class Form1: Form
                 CreateResetSettingsMenuItem();
             }
             }
+
+        private void MyMenu_Closed(object sender, ToolStripDropDownClosedEventArgs e)
+        {
+            myMenu.Items.Clear();
+            CreateLanguageMenuItem();
+        }
 
         private void ChooseLanguage_Click(object sender, EventArgs e)
         {
