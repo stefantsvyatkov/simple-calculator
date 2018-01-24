@@ -18,15 +18,20 @@ namespace SimpleCalculator
     {
         public Form2()
         {
-            InitializeComponent();
+InitializeComponent();
             this.Text = rm.GetString("languageFormTitle");
+            language.AccessibleName = rm.GetString("languageFormTitle");
             language.Sorted = true;
             language.Items.Add(rm.GetString("languageBulgarian"));
             language.Items.Add(rm.GetString("languageEnglish"));
             language.SelectedIndex = 0;
             ok.Text = rm.GetString("okButton");
             cancel.Text = rm.GetString("cancelButton");
-        }
+            if (Properties.Settings.Default.firstStart)
+            {
+                ShowWelcomeMessage();
+            }
+            }
 
         ResourceManager rm = new ResourceManager("SimpleCalculator.ProjectResource", Assembly.GetExecutingAssembly());
 
@@ -37,27 +42,23 @@ namespace SimpleCalculator
 
         private void Ok_Click(object sender, EventArgs e)
         {
-            if (language.SelectedItem.ToString() == rm.GetString("languageEnglish"))
+            if (Properties.Settings.Default.firstStart)
             {
-                if (CultureInfo.CurrentUICulture.TwoLetterISOLanguageName == "bg")
-                {
-                Properties.Settings.Default.appLanguage = CultureInfo.CreateSpecificCulture("en");
-                }
+                Properties.Settings.Default.defaultCulture = SetAppLanguage();
+                Properties.Settings.Default.appLanguage = Properties.Settings.Default.defaultCulture;
+                Properties.Settings.Default.firstStart = false;
+                Properties.Settings.Default.Save();
+                Application.Restart();
+                return;
             }
-            else
-            {
-                if (Properties.Settings.Default.appLanguage.TwoLetterISOLanguageName != "bg")
-                {
-                Properties.Settings.Default.appLanguage = CultureInfo.CreateSpecificCulture("bg");
-                }
-            }
-            Properties.Settings.Default.Save();
-            if (CultureInfo.CurrentUICulture.TwoLetterISOLanguageName != Properties.Settings.Default.appLanguage.TwoLetterISOLanguageName)
+            Properties.Settings.Default.appLanguage = SetAppLanguage();
+            if (CultureInfo.CurrentUICulture.TwoLetterISOLanguageName != Properties.Settings.Default.appLanguage)
             {
                 DialogResult questionResult = ShowQuestionMessage();
                 if (questionResult == DialogResult.Yes)
                 {
                     ShowInformationMessage();
+                    Properties.Settings.Default.Save();
 Application.Restart();
 }
                 if (questionResult == DialogResult.No)
@@ -70,6 +71,20 @@ Application.Restart();
                 cancel.PerformClick();
             }
             }
+
+        public string SetAppLanguage()
+        {
+           string lang = string.Empty;
+            if (language.SelectedItem.ToString() == rm.GetString("languageEnglish"))
+            {
+                  lang = "en";
+                }
+            else
+            {
+                   lang = "bg";
+            }
+            return lang;
+        }
 
         public DialogResult ShowQuestionMessage()
         {
@@ -85,6 +100,13 @@ Application.Restart();
             string messageTitle = rm.GetString("informationMessageTitle");
             MessageBox.Show(messageStr, messageTitle, MessageBoxButtons.OK, MessageBoxIcon.Information);
 }
+
+        public void ShowWelcomeMessage()
+        {
+            string messageStr = rm.GetString("welcomeMessageText");
+            string messageTitle = rm.GetString("welcomeMessageTitle");
+            MessageBox.Show(messageStr, messageTitle, MessageBoxButtons.OK, MessageBoxIcon.Information);
+        }
 
     }
 }

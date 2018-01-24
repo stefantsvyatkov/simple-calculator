@@ -14,13 +14,14 @@ using System.Reflection;
 
 namespace SimpleCalculator
 {
-    
 public partial class Form1: Form
     {
         public Form1()
         {
-            Properties.Settings.Default.defaultCulture = CultureInfo.CurrentUICulture;
-            CultureInfo.CurrentUICulture = Properties.Settings.Default.appLanguage;
+            if (!Properties.Settings.Default.firstStart)
+            {
+                CultureInfo.CurrentUICulture = CultureInfo.CreateSpecificCulture(Properties.Settings.Default.appLanguage);
+            }
             InitializeComponent();
             if (Properties.Settings.Default.buttonsHidden)
             {
@@ -78,7 +79,7 @@ public partial class Form1: Form
                 hideButtons.Click += new EventHandler(HideButtons_click);
                 myMenu.Items.Add(hideButtons);
             }
-            if ((Properties.Settings.Default.appLanguage.TwoLetterISOLanguageName != Properties.Settings.Default.defaultCulture.TwoLetterISOLanguageName) || Properties.Settings.Default.buttonsHidden)
+            if ((Properties.Settings.Default.appLanguage != Properties.Settings.Default.defaultCulture) || Properties.Settings.Default.buttonsHidden)
             {
                 CreateResetSettingsMenuItem();
             }
@@ -122,8 +123,10 @@ public partial class Form1: Form
             DialogResult questionResult = frm.ShowQuestionMessage();
             if (questionResult == DialogResult.Yes)
             {
-Properties.Settings.Default.appLanguage = Properties.Settings.Default.defaultCulture;
+                Properties.Settings.Default.defaultCulture = string.Empty;
+                Properties.Settings.Default.appLanguage = string.Empty;
                 Properties.Settings.Default.buttonsHidden = false;
+                Properties.Settings.Default.firstStart = true;
                 Properties.Settings.Default.Save();
                 frm.ShowInformationMessage();
                 Application.Restart();
@@ -137,7 +140,7 @@ Properties.Settings.Default.appLanguage = Properties.Settings.Default.defaultCul
             if (e.KeyCode == Keys.Escape)
             {
                 e.SuppressKeyPress = true;
-                this.Close();
+                Environment.Exit(1);
             }
         }
 

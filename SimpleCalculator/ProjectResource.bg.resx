@@ -162,4 +162,10 @@
   <data name="showButtonsMenuItem" xml:space="preserve">
     <value>Покажи бутоните за числови операции</value>
   </data>
+  <data name="welcomeMessageText" xml:space="preserve">
+    <value>В следващия прозорец ще бъдете подканени да изберете езика по подразбиране на програмата</value>
+  </data>
+  <data name="welcomeMessageTitle" xml:space="preserve">
+    <value>Добре дошли!</value>
+  </data>
 </root>

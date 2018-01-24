@@ -168,4 +168,10 @@
   <data name="showButtonsMenuItem" xml:space="preserve">
     <value>Show operation buttons</value>
   </data>
+  <data name="welcomeMessageText" xml:space="preserve">
+    <value>In the next window you will be prompted to choose app default language</value>
+  </data>
+  <data name="welcomeMessageTitle" xml:space="preserve">
+    <value>Welcome!</value>
+  </data>
 </root>
