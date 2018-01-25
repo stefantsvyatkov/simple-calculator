@@ -672,3 +672,8 @@ may consider it more useful to permit linking proprietary applications with
 the library.  If this is what you want to do, use the GNU Lesser General
 Public License instead of this License.  But first, please read
 <http://www.gnu.org/philosophy/why-not-lgpl.html>.
+
+Tolk library license
+
+Tolk is distributed under the GNU Lesser General Public License version 3 (LGPLv3). Client libraries and headers are distributed under their own license. The library can be found here:
+https://github.com/dkager/tolk

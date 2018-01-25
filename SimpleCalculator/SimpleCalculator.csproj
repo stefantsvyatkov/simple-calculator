@@ -99,6 +99,7 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Tolk.cs" />
     <EmbeddedResource Include="Form1.bg.resx">
       <DependentUpon>Form1.cs</DependentUpon>
     </EmbeddedResource>

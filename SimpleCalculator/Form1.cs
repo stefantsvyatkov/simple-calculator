@@ -11,6 +11,7 @@ using System.Globalization;
 using System.Threading;
 using System.Resources;
 using System.Reflection;
+using DavyKager;
 
 namespace SimpleCalculator
 {
@@ -338,17 +339,22 @@ private void ShowInvalidNumberMessage()
             }
             return checker;
         }
-
+        
         private void ShowResultOutput()
         {
-            numberText.Visible = false;
-            numberText.Visible = true;
             numberText.Text = currentNum.ToString("0.##");
+            numberText.SelectAll();
+            Tolk.Load();
+            if (Tolk.DetectScreenReader() == "JAWS")
+            {
+Tolk.Output(numberText.Text, true);
+            }
+            Tolk.Unload();
             numberText.Focus();
-}
-
-        
-
         }
+
+
+
+    }
 }
                     
