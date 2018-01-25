@@ -44,8 +44,7 @@ InitializeComponent();
         {
             if (Properties.Settings.Default.firstStart)
             {
-                Properties.Settings.Default.defaultCulture = SetAppLanguage();
-                Properties.Settings.Default.appLanguage = Properties.Settings.Default.defaultCulture;
+                Properties.Settings.Default.appLanguage = SetAppLanguage();
                 Properties.Settings.Default.firstStart = false;
                 Properties.Settings.Default.Save();
                 Application.Restart();

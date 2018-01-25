@@ -117,8 +117,17 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="addButton" xml:space="preserve">
+    <value>Add</value>
+  </data>
   <data name="cancelButton" xml:space="preserve">
     <value>&amp;Cancel</value>
+  </data>
+  <data name="clearButton" xml:space="preserve">
+    <value>Clear</value>
+  </data>
+  <data name="divideButton" xml:space="preserve">
+    <value>Divide</value>
   </data>
   <data name="errorTitle" xml:space="preserve">
     <value>Error</value>
@@ -150,8 +159,14 @@
   <data name="makeOperationMessageText" xml:space="preserve">
     <value>Please make an operation.</value>
   </data>
+  <data name="multiplyButton" xml:space="preserve">
+    <value>Multiply</value>
+  </data>
   <data name="okButton" xml:space="preserve">
     <value>&amp;OK</value>
+  </data>
+  <data name="percentButton" xml:space="preserve">
+    <value>Percent</value>
   </data>
   <data name="questionText" xml:space="preserve">
     <value>Are you sure?</value>
@@ -164,6 +179,9 @@
   </data>
   <data name="showButtonsMenuItem" xml:space="preserve">
     <value>Show operation buttons</value>
+  </data>
+  <data name="subtractButton" xml:space="preserve">
+    <value>Subtract</value>
   </data>
   <data name="welcomeMessageText" xml:space="preserve">
     <value>In the next window you will be prompted to choose default language for the app.</value>

@@ -117,8 +117,17 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="addButton" xml:space="preserve">
+    <value>Плюс</value>
+  </data>
   <data name="cancelButton" xml:space="preserve">
     <value>О&amp;тказ</value>
+  </data>
+  <data name="clearButton" xml:space="preserve">
+    <value>Изчисти</value>
+  </data>
+  <data name="divideButton" xml:space="preserve">
+    <value>Раздели</value>
   </data>
   <data name="errorTitle" xml:space="preserve">
     <value> Грешка</value>
@@ -150,6 +159,12 @@
   <data name="makeOperationMessageText" xml:space="preserve">
     <value>Моля извършете операция.</value>
   </data>
+  <data name="multiplyButton" xml:space="preserve">
+    <value>Умножи</value>
+  </data>
+  <data name="percentButton" xml:space="preserve">
+    <value>Процент</value>
+  </data>
   <data name="questionText" xml:space="preserve">
     <value>Сигурни ли сте?</value>
   </data>
@@ -161,6 +176,9 @@
   </data>
   <data name="showButtonsMenuItem" xml:space="preserve">
     <value>Покажи бутоните за числови операции</value>
+  </data>
+  <data name="subtractButton" xml:space="preserve">
+    <value>Минус</value>
   </data>
   <data name="welcomeMessageText" xml:space="preserve">
     <value>В следващия прозорец ще бъдете подканени да изберете езика по подразбиране на програмата.</value>

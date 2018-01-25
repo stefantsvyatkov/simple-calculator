@@ -74,10 +74,7 @@ private void CreateContextMenu()
 hideButtons.Click += new EventHandler(HideButtons_click);
                 myMenu.Items.Add(hideButtons);
             }
-            if ((Properties.Settings.Default.appLanguage != Properties.Settings.Default.defaultCulture) || Properties.Settings.Default.buttonsHidden)
-            {
                 CreateResetSettingsMenuItem();
-            }
             }
 
         private void MyMenu_Closed(object sender, ToolStripDropDownClosedEventArgs e)
@@ -124,7 +121,6 @@ hideButtons.Click += new EventHandler(HideButtons_click);
             DialogResult questionResult = frm.ShowQuestionMessage();
             if (questionResult == DialogResult.Yes)
             {
-                Properties.Settings.Default.defaultCulture = string.Empty;
                 Properties.Settings.Default.appLanguage = string.Empty;
                 Properties.Settings.Default.buttonsHidden = false;
                 Properties.Settings.Default.firstStart = true;
@@ -167,6 +163,10 @@ numberText.Text = string.Empty;
 
             private void Clear_Click(object sender, EventArgs e)
         {
+            if (!clear.Focused)
+            {
+            TalkString(rm.GetString("clearButton"));
+            }
             currentNum = 0;
             secondNum = 0;
             operationMade = false;
@@ -177,30 +177,50 @@ numberText.Text = string.Empty;
         
 private void Add_Click(object sender, EventArgs e)
         {
+            if (!add.Focused)
+            {
+            TalkString(rm.GetString("addButton"));
+            }
             operation = "+";
             GetCurrentNumber();
-}
+                }
         
         private void Subtract_Click(object sender, EventArgs e)
         {
+            if (!subtract.Focused)
+            {
+            TalkString(rm.GetString("subtractButton"));
+            }
             operation = "-";
             GetCurrentNumber();
             }
 
         private void Multiply_Click(object sender, EventArgs e)
         {
+            if (!multiply.Focused)
+            {
+            TalkString(rm.GetString("multiplyButton"));
+            }
             operation = "*";
             GetCurrentNumber();
 }
 
         private void Divide_Click(object sender, EventArgs e)
         {
+            if (!divide.Focused)
+            {
+            TalkString(rm.GetString("divideButton"));
+            }
             operation = "/";
             GetCurrentNumber();
 }
 
         private void Percent_Click(object sender, EventArgs e)
         {
+            if (!percent.Focused)
+            {
+            TalkString(rm.GetString("percentButton"));
+            }
             operation = "%";
             GetCurrentNumber();
 }
@@ -353,7 +373,12 @@ Tolk.Output(numberText.Text, true);
             numberText.Focus();
         }
 
-
+        private void TalkString(string text)
+        {
+            Tolk.Load();
+            Tolk.Output(text, true);
+            Tolk.Unload();
+}
 
     }
 }
