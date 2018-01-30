@@ -137,13 +137,10 @@
     <value>&amp;Умножи</value>
   </data>
   <data name="divide.Text" xml:space="preserve">
-    <value>&amp;Раздели</value>
-  </data>
-  <data name="result.Location" type="System.Drawing.Point, System.Drawing">
-    <value>80, 199</value>
+    <value>Раз&amp;дели</value>
   </data>
   <data name="result.Text" xml:space="preserve">
-    <value>Ре&amp;зултат</value>
+    <value>&amp;Резултат</value>
   </data>
   <data name="numberText.AccessibleName" xml:space="preserve">
     <value> Число</value>

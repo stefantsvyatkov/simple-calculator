@@ -120,6 +120,12 @@
   <data name="addButton" xml:space="preserve">
     <value>Плюс</value>
   </data>
+  <data name="buttonsHiddenMessage" xml:space="preserve">
+    <value>Бутоните са скрити.</value>
+  </data>
+  <data name="buttonsShownMessage" xml:space="preserve">
+    <value>Бутоните са показани.</value>
+  </data>
   <data name="cancelButton" xml:space="preserve">
     <value>О&amp;тказ</value>
   </data>
@@ -147,11 +153,11 @@
   <data name="languageBulgarian" xml:space="preserve">
     <value>Български</value>
   </data>
+  <data name="languageComboBoxTitle" xml:space="preserve">
+    <value>Език</value>
+  </data>
   <data name="languageEnglish" xml:space="preserve">
     <value>Английски</value>
-  </data>
-  <data name="languageFormTitle" xml:space="preserve">
-    <value>Език</value>
   </data>
   <data name="languageMenuItem" xml:space="preserve">
     <value>Избери език</value>
@@ -161,6 +167,9 @@
   </data>
   <data name="multiplyButton" xml:space="preserve">
     <value>Умножи</value>
+  </data>
+  <data name="okButton" xml:space="preserve">
+    <value>&amp;ОК</value>
   </data>
   <data name="percentButton" xml:space="preserve">
     <value>Процент</value>

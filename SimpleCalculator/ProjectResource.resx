@@ -120,6 +120,12 @@
   <data name="addButton" xml:space="preserve">
     <value>Add</value>
   </data>
+  <data name="buttonsHiddenMessage" xml:space="preserve">
+    <value>Buttons are hidden.</value>
+  </data>
+  <data name="buttonsShownMessage" xml:space="preserve">
+    <value>Buttons are shown.</value>
+  </data>
   <data name="cancelButton" xml:space="preserve">
     <value>&amp;Cancel</value>
   </data>
@@ -147,11 +153,11 @@
   <data name="languageBulgarian" xml:space="preserve">
     <value>Bulgarian</value>
   </data>
+  <data name="languageComboBoxTitle" xml:space="preserve">
+    <value>Language</value>
+  </data>
   <data name="languageEnglish" xml:space="preserve">
     <value>English</value>
-  </data>
-  <data name="languageFormTitle" xml:space="preserve">
-    <value>Language</value>
   </data>
   <data name="languageMenuItem" xml:space="preserve">
     <value>Choose language</value>

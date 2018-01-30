@@ -24,14 +24,7 @@ public partial class Form1: Form
                 CultureInfo.CurrentUICulture = CultureInfo.CreateSpecificCulture(Properties.Settings.Default.appLanguage);
             }
             InitializeComponent();
-            if (Properties.Settings.Default.buttonsHidden)
-            {
-                HideButtons_click(new object(), new EventArgs());
-            }
-            else
-            {
-                ShowButtons_click(new object(), new EventArgs());
-            }
+            ManipulateOperationButtonsVisibility();
             CreateContextMenu();
         }
 
@@ -40,6 +33,7 @@ public partial class Form1: Form
 private void CreateContextMenu()
         {
             CreateLanguageMenuItem();
+            CreateResetSettingsMenuItem();
             myMenu.Opened += new EventHandler(MyMenu_Opened);
             myMenu.Closed += new ToolStripDropDownClosedEventHandler(MyMenu_Closed);
                     this.ContextMenuStrip = myMenu;
@@ -49,6 +43,8 @@ private void CreateContextMenu()
         private void CreateLanguageMenuItem()
         {
             ToolStripMenuItem chooseLanguage = new ToolStripMenuItem(rm.GetString("languageMenuItem"));
+            chooseLanguage.ShortcutKeys = Keys.Control | Keys.L;
+            chooseLanguage.ShowShortcutKeys = true;
             chooseLanguage.Click += new EventHandler(ChooseLanguage_Click);
             myMenu.Items.Add(chooseLanguage);
         }
@@ -56,6 +52,8 @@ private void CreateContextMenu()
         private void CreateResetSettingsMenuItem()
         {
             ToolStripMenuItem resetSettings = new ToolStripMenuItem(rm.GetString("resetSettingsMenuItem"));
+            resetSettings.ShortcutKeys = Keys.Control | Keys.R;
+            resetSettings.ShowShortcutKeys = true;
             resetSettings.Click += new EventHandler(ResetSettings_Click);
             myMenu.Items.Add(resetSettings);
         }
@@ -65,22 +63,26 @@ private void CreateContextMenu()
             if (Properties.Settings.Default.buttonsHidden)
             {
                 ToolStripMenuItem showButtons = new ToolStripMenuItem(rm.GetString("showButtonsMenuItem"));
+                showButtons.ShortcutKeys = Keys.Control | Keys.B;
+                showButtons.ShowShortcutKeys = true;
                 showButtons.Click += new EventHandler(ShowButtons_click);
                 myMenu.Items.Add(showButtons);
             }
             else
             {
                 ToolStripMenuItem hideButtons = new ToolStripMenuItem(rm.GetString("hideButtonsMenuItem"));
-hideButtons.Click += new EventHandler(HideButtons_click);
+                hideButtons.ShortcutKeys = Keys.Control | Keys.B;
+                hideButtons.ShowShortcutKeys = true;
+                hideButtons.Click += new EventHandler(HideButtons_click);
                 myMenu.Items.Add(hideButtons);
             }
-                CreateResetSettingsMenuItem();
-            }
+                }
 
         private void MyMenu_Closed(object sender, ToolStripDropDownClosedEventArgs e)
         {
             myMenu.Items.Clear();
             CreateLanguageMenuItem();
+            CreateResetSettingsMenuItem();
         }
 
         private void ChooseLanguage_Click(object sender, EventArgs e)
@@ -132,12 +134,28 @@ hideButtons.Click += new EventHandler(HideButtons_click);
 
      ResourceManager rm = new ResourceManager("SimpleCalculator.ProjectResource", Assembly.GetExecutingAssembly());
         
-        private void Form1_Close(object sender, KeyEventArgs e)
+        private void Form1_Shortcuts(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Escape)
             {
                 e.SuppressKeyPress = true;
                 Environment.Exit(1);
+            }
+            if (e.Modifiers == Keys.Control && e.KeyCode == Keys.B)
+            {
+                e.SuppressKeyPress = true;
+                if (Properties.Settings.Default.buttonsHidden)
+                {
+                    Properties.Settings.Default.buttonsHidden = false;
+                    ManipulateOperationButtonsVisibility();
+                    TalkString(rm.GetString("buttonsShownMessage"));
+                }
+                else
+                {
+                    Properties.Settings.Default.buttonsHidden = true;
+                    ManipulateOperationButtonsVisibility();
+                    TalkString(rm.GetString("buttonsHiddenMessage"));
+                }
             }
         }
 
@@ -391,6 +409,18 @@ numberText.SelectionStart = numberText.Text.Length;
                 numberText.SelectionStart = numberText.Text.Length;
                 resultPressed = false;
                 }
+        }
+
+        private void ManipulateOperationButtonsVisibility()
+        {
+            if (Properties.Settings.Default.buttonsHidden)
+            {
+                HideButtons_click(new object(), new EventArgs());
+            }
+            else
+            {
+                ShowButtons_click(new object(), new EventArgs());
+            }
         }
 
     }

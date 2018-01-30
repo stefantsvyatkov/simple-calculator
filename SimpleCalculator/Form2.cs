@@ -19,8 +19,9 @@ namespace SimpleCalculator
         public Form2()
         {
 InitializeComponent();
-            this.Text = rm.GetString("languageFormTitle");
-            language.AccessibleName = rm.GetString("languageFormTitle");
+            this.Text = rm.GetString("languageMenuItem");
+            languageLabel.Text = rm.GetString("languageComboBoxTitle");
+            language.AccessibleName = rm.GetString("languageComboBoxTitle");
             language.Sorted = true;
             language.Items.Add(rm.GetString("languageBulgarian"));
             language.Items.Add(rm.GetString("languageEnglish"));

@@ -92,8 +92,7 @@
             // 
             resources.ApplyResources(this.numberText, "numberText");
             this.numberText.Name = "numberText";
-            this.numberText.ShortcutsEnabled = true;
-            this.numberText.TextChanged += new System.EventHandler(NumberText_TextChanged);
+            this.numberText.TextChanged += new System.EventHandler(this.NumberText_TextChanged);
             // 
             // percent
             // 
@@ -104,8 +103,8 @@
             // 
             // toolStripComboBox1
             // 
-            this.toolStripComboBox1.Name = "toolStripComboBox1";
             resources.ApplyResources(this.toolStripComboBox1, "toolStripComboBox1");
+            this.toolStripComboBox1.Name = "toolStripComboBox1";
             // 
             // Form1
             // 
@@ -123,7 +122,7 @@
             this.Controls.Add(this.numberLabel);
             this.KeyPreview = true;
             this.Name = "Form1";
-            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Form1_Close);
+            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Form1_Shortcuts);
             this.ResumeLayout(false);
             this.PerformLayout();
 
