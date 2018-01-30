@@ -92,7 +92,8 @@
             // 
             resources.ApplyResources(this.numberText, "numberText");
             this.numberText.Name = "numberText";
-            this.numberText.ShortcutsEnabled = false;
+            this.numberText.ShortcutsEnabled = true;
+            this.numberText.TextChanged += new System.EventHandler(NumberText_TextChanged);
             // 
             // percent
             // 

@@ -145,6 +145,7 @@ hideButtons.Click += new EventHandler(HideButtons_click);
         decimal secondNum = 0;
        string operation = string.Empty;
         bool operationMade = false;
+        bool operationButtonPressed = false;
 
         private void GetCurrentNumber()
         {
@@ -155,6 +156,7 @@ hideButtons.Click += new EventHandler(HideButtons_click);
             else
             {
                 operationMade = true;
+                operationButtonPressed = true;
                 currentNum = decimal.Parse(numberText.Text);
                 }
 numberText.Text = string.Empty;
@@ -170,6 +172,7 @@ numberText.Text = string.Empty;
             currentNum = 0;
             secondNum = 0;
             operationMade = false;
+            operationButtonPressed = true;
             operation = string.Empty;
             numberText.Text = string.Empty;
             numberText.Focus();
@@ -258,6 +261,7 @@ private void Add_Click(object sender, EventArgs e)
                 currentNum = MakeCalculation(operation, currentNum, secondNum);
                 ShowResultOutput();
             operationMade = false;
+            operationButtonPressed = false;
                 }
 
         private decimal MakeCalculation(string operation, decimal currentNum, decimal resultNum)
@@ -359,18 +363,17 @@ private void ShowInvalidNumberMessage()
             }
             return checker;
         }
+
+        bool resultPressed = false;
         
         private void ShowResultOutput()
         {
-            numberText.Text = currentNum.ToString("0.##");
-            numberText.SelectAll();
-            Tolk.Load();
-            if (Tolk.DetectScreenReader() == "JAWS")
-            {
-Tolk.Output(numberText.Text, true);
-            }
-            Tolk.Unload();
+            numberText.Text = currentNum.ToString();
+numberText.SelectionStart = numberText.Text.Length;
+            TalkString(numberText.Text);
+            Clipboard.SetText(numberText.Text);
             numberText.Focus();
+            resultPressed = true;
         }
 
         private void TalkString(string text)
@@ -379,6 +382,16 @@ Tolk.Output(numberText.Text, true);
             Tolk.Output(text, true);
             Tolk.Unload();
 }
+
+        private void NumberText_TextChanged(object sender, EventArgs e)
+        {
+            if (resultPressed && !operationButtonPressed)
+            {
+            numberText.Text = numberText.Text[numberText.Text.Length - 1].ToString();
+                numberText.SelectionStart = numberText.Text.Length;
+                resultPressed = false;
+                }
+        }
 
     }
 }
