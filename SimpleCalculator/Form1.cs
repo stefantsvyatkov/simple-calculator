@@ -42,19 +42,25 @@ private void CreateContextMenu()
 
         private void CreateLanguageMenuItem()
         {
-            ToolStripMenuItem chooseLanguage = new ToolStripMenuItem(rm.GetString("languageMenuItem"));
-            chooseLanguage.ShortcutKeys = Keys.Control | Keys.L;
-            chooseLanguage.ShowShortcutKeys = true;
+            ToolStripMenuItem chooseLanguage = new ToolStripMenuItem
+            {
+                Text = rm.GetString("languageMenuItem"),
+                ShortcutKeys = Keys.Control | Keys.L,
+            ShowShortcutKeys = true
+};
             chooseLanguage.Click += new EventHandler(ChooseLanguage_Click);
             myMenu.Items.Add(chooseLanguage);
         }
 
         private void CreateResetSettingsMenuItem()
         {
-            ToolStripMenuItem resetSettings = new ToolStripMenuItem(rm.GetString("resetSettingsMenuItem"));
-            resetSettings.ShortcutKeys = Keys.Control | Keys.R;
-            resetSettings.ShowShortcutKeys = true;
-            resetSettings.Click += new EventHandler(ResetSettings_Click);
+            ToolStripMenuItem resetSettings = new ToolStripMenuItem
+            {
+                Text = rm.GetString("resetSettingsMenuItem"),
+                ShortcutKeys = Keys.Control | Keys.R,
+                ShowShortcutKeys = true
+            };
+        resetSettings.Click += new EventHandler(ResetSettings_Click);
             myMenu.Items.Add(resetSettings);
         }
 
@@ -62,17 +68,23 @@ private void CreateContextMenu()
         {
             if (Properties.Settings.Default.buttonsHidden)
             {
-                ToolStripMenuItem showButtons = new ToolStripMenuItem(rm.GetString("showButtonsMenuItem"));
-                showButtons.ShortcutKeys = Keys.Control | Keys.B;
-                showButtons.ShowShortcutKeys = true;
+                ToolStripMenuItem showButtons = new ToolStripMenuItem
+                {
+                    Text = rm.GetString("showButtonsMenuItem"),
+                    ShortcutKeys = Keys.Control | Keys.B,
+                ShowShortcutKeys = true
+};
                 showButtons.Click += new EventHandler(ShowButtons_click);
                 myMenu.Items.Add(showButtons);
             }
             else
             {
-                ToolStripMenuItem hideButtons = new ToolStripMenuItem(rm.GetString("hideButtonsMenuItem"));
-                hideButtons.ShortcutKeys = Keys.Control | Keys.B;
-                hideButtons.ShowShortcutKeys = true;
+                ToolStripMenuItem hideButtons = new ToolStripMenuItem
+                {
+                    Text = rm.GetString("hideButtonsMenuItem"),
+                    ShortcutKeys = Keys.Control | Keys.B,
+                ShowShortcutKeys = true
+                };
                 hideButtons.Click += new EventHandler(HideButtons_click);
                 myMenu.Items.Add(hideButtons);
             }
