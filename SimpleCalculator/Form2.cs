@@ -20,9 +20,8 @@ namespace SimpleCalculator
         {
 InitializeComponent();
             this.Text = rm.GetString("languageMenuItem");
+            this.AccessibleName = rm.GetString("languageMenuItem");
             languageLabel.Text = rm.GetString("languageComboBoxTitle");
-            language.AccessibleName = rm.GetString("languageComboBoxTitle");
-            language.Sorted = true;
             language.Items.Add(rm.GetString("languageBulgarian"));
             language.Items.Add(rm.GetString("languageEnglish"));
             language.SelectedIndex = 0;
@@ -31,7 +30,8 @@ InitializeComponent();
             if (Properties.Settings.Default.firstStart)
             {
                 ShowWelcomeMessage();
-            }
+                Thread.Sleep(100);
+                }
             }
 
         ResourceManager rm = new ResourceManager("SimpleCalculator.ProjectResource", Assembly.GetExecutingAssembly());
@@ -48,7 +48,8 @@ InitializeComponent();
                 Properties.Settings.Default.appLanguage = SetAppLanguage();
                 Properties.Settings.Default.firstStart = false;
                 Properties.Settings.Default.Save();
-                Application.Restart();
+                Form1 frm = new Form1();
+                frm.Show();
                 return;
             }
             Properties.Settings.Default.appLanguage = SetAppLanguage();

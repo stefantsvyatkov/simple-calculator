@@ -37,10 +37,11 @@
             // language
             // 
             this.language.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.language.FormattingEnabled = true;
-            this.language.Location = new System.Drawing.Point(80, 10);
+            this.language.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.language.Location = new System.Drawing.Point(72, 12);
             this.language.Name = "language";
             this.language.Size = new System.Drawing.Size(100, 21);
+            this.language.Sorted = true;
             this.language.TabIndex = 1;
             // 
             // ok
@@ -78,6 +79,7 @@
             // Form2
             // 
             this.AcceptButton = this.ok;
+            this.AccessibleRole = System.Windows.Forms.AccessibleRole.Application;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSize = true;

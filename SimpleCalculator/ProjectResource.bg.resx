@@ -190,7 +190,7 @@
     <value>Минус</value>
   </data>
   <data name="welcomeMessageText" xml:space="preserve">
-    <value>В следващия прозорец ще бъдете подканени да изберете езика по подразбиране на програмата.</value>
+    <value>В следващия прозорец ще бъдете подканени да изберете езика, на който ще използвате тази програма.</value>
   </data>
   <data name="welcomeMessageTitle" xml:space="preserve">
     <value>Добре дошли!</value>

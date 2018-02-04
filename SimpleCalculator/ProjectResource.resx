@@ -190,7 +190,7 @@
     <value>Subtract</value>
   </data>
   <data name="welcomeMessageText" xml:space="preserve">
-    <value>In the next window you will be prompted to choose default language for the app.</value>
+    <value>In the next window you will be prompted to choose default language for this app.</value>
   </data>
   <data name="welcomeMessageTitle" xml:space="preserve">
     <value>Welcome!</value>

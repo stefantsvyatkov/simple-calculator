@@ -110,6 +110,7 @@
             // 
             this.AcceptButton = this.result;
             resources.ApplyResources(this, "$this");
+            this.AccessibleRole = System.Windows.Forms.AccessibleRole.Application;
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.percent);
             this.Controls.Add(this.numberText);
