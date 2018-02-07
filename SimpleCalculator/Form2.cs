@@ -11,6 +11,7 @@ using System.Resources;
 using System.Reflection;
 using System.Threading;
 using System.Globalization;
+using System.Configuration;
 
 namespace SimpleCalculator
 {
@@ -18,8 +19,8 @@ namespace SimpleCalculator
     {
         public Form2()
         {
-InitializeComponent();
-            this.Text = rm.GetString("languageMenuItem");
+            InitializeComponent();
+this.Text = rm.GetString("languageMenuItem");
             this.AccessibleName = rm.GetString("languageMenuItem");
             languageLabel.Text = rm.GetString("languageComboBoxTitle");
             language.Items.Add(rm.GetString("languageBulgarian"));
@@ -27,7 +28,7 @@ InitializeComponent();
             language.SelectedIndex = 0;
             ok.Text = rm.GetString("okButton");
             cancel.Text = rm.GetString("cancelButton");
-            if (Properties.Settings.Default.firstStart)
+            if (mainForm.GetSettingValue("firstStart") == "true")
             {
                 ShowWelcomeMessage();
                 Thread.Sleep(100);
@@ -35,33 +36,33 @@ InitializeComponent();
             }
 
         ResourceManager rm = new ResourceManager("SimpleCalculator.ProjectResource", Assembly.GetExecutingAssembly());
-
+        
         private void Cancel_Click(object sender, EventArgs e)
         {
             this.Close();
         }
 
+        Form1 mainForm = new Form1();
+
         private void Ok_Click(object sender, EventArgs e)
         {
-            if (Properties.Settings.Default.firstStart)
+            if (mainForm.GetSettingValue("firstStart") == "true")
             {
-                Properties.Settings.Default.appLanguage = SetAppLanguage();
-                Properties.Settings.Default.firstStart = false;
-                Properties.Settings.Default.Save();
+                mainForm.UpdateSetting("appLanguage", SetAppLanguage());
+                mainForm.UpdateSetting("firstStart", "false");
                 Form1 frm = new Form1();
                 frm.Show();
                 return;
             }
-            Properties.Settings.Default.appLanguage = SetAppLanguage();
-            if (CultureInfo.CurrentUICulture.TwoLetterISOLanguageName != Properties.Settings.Default.appLanguage)
+            mainForm.UpdateSetting("appLanguage", SetAppLanguage());
+            if (CultureInfo.CurrentUICulture.TwoLetterISOLanguageName != mainForm.GetSettingValue("appLanguage"))
             {
                 DialogResult questionResult = ShowQuestionMessage();
                 if (questionResult == DialogResult.Yes)
                 {
                     ShowInformationMessage();
-                    Properties.Settings.Default.Save();
-Application.Restart();
-}
+                    Application.Restart();
+                }
                 if (questionResult == DialogResult.No)
                 {
                     cancel.PerformClick();
@@ -71,7 +72,7 @@ Application.Restart();
             {
                 cancel.PerformClick();
             }
-            }
+        }
 
         public string SetAppLanguage()
         {
@@ -108,6 +109,19 @@ Application.Restart();
             string messageTitle = rm.GetString("welcomeMessageTitle");
             MessageBox.Show(messageStr, messageTitle, MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
+
+        public void ResetDefaultSettings()
+        {
+            DialogResult questionResult = ShowQuestionMessage();
+            if (questionResult == DialogResult.Yes)
+            {
+               mainForm.UpdateSetting("appLanguage", string.Empty);
+               mainForm.UpdateSetting("buttonsHidden", "false");
+               mainForm.UpdateSetting("firstStart", "true");
+                ShowInformationMessage();
+                Application.Restart();
+            }
+}
 
     }
 }

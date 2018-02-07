@@ -19,15 +19,18 @@ namespace SimpleCalculator
         {
             Application.EnableVisualStyles();
            Application.SetCompatibleTextRenderingDefault(false);
-            if (Properties.Settings.Default.firstStart)
+
+            Form1 mainForm = new Form1();
+            Form2 languageForm = new Form2();
+            
+            if (mainForm.GetSettingValue("firstStart") == "true")
             {
-                Application.Run(new Form2());
+                Application.Run(languageForm);
             }
             else
             {
-
-            Application.Run(new Form1());
+                Application.Run(mainForm);
             }
+                }
         }
-    }
 }

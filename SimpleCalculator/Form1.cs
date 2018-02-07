@@ -12,6 +12,7 @@ using System.Threading;
 using System.Resources;
 using System.Reflection;
 using DavyKager;
+using System.Configuration;
 
 namespace SimpleCalculator
 {
@@ -19,17 +20,19 @@ public partial class Form1: Form
     {
         public Form1()
         {
-            if (!Properties.Settings.Default.firstStart)
+            InitializeSettings();
+            if (GetSettingValue("firstStart") == "false")
             {
-                CultureInfo.CurrentUICulture = CultureInfo.CreateSpecificCulture(Properties.Settings.Default.appLanguage);
+                CultureInfo.CurrentUICulture = CultureInfo.CreateSpecificCulture(GetSettingValue("appLanguage"));
             }
             InitializeComponent();
             ManipulateOperationButtonsVisibility();
             CreateContextMenu();
-        }
+            }
 
         ContextMenuStrip myMenu = new ContextMenuStrip();
-        
+        System.Configuration.Configuration mySettings = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
+
 private void CreateContextMenu()
         {
             CreateLanguageMenuItem();
@@ -63,10 +66,10 @@ private void CreateContextMenu()
         resetSettings.Click += new EventHandler(ResetSettings_Click);
             myMenu.Items.Add(resetSettings);
         }
-
+ 
         private void MyMenu_Opened(object sender, EventArgs e)
         {
-            if (Properties.Settings.Default.buttonsHidden)
+            if (GetSettingValue("buttonsHidden") == "true")
             {
                 ToolStripMenuItem showButtons = new ToolStripMenuItem
                 {
@@ -96,7 +99,7 @@ private void CreateContextMenu()
             CreateLanguageMenuItem();
             CreateResetSettingsMenuItem();
         }
-
+        
         private void ChooseLanguage_Click(object sender, EventArgs e)
         {
             Form2 languageForm = new Form2();
@@ -110,10 +113,9 @@ private void CreateContextMenu()
                 multiply.Visible = false;
                 divide.Visible = false;
                 percent.Visible = false;
-                Properties.Settings.Default.buttonsHidden = true;
                     this.Size = new System.Drawing.Size(300, 125);
                 result.Location = new Point(80, 50);
-            Properties.Settings.Default.Save();
+            UpdateSetting("buttonsHidden", "true");
                 }
 
         private void ShowButtons_click(object sender, EventArgs e)
@@ -123,25 +125,15 @@ private void CreateContextMenu()
                 multiply.Visible = true;
                 divide.Visible = true;
                 percent.Visible = true;
-               Properties.Settings.Default.buttonsHidden = false;
     this.Size = new System.Drawing.Size(300, 280);
                 result.Location = new Point(80, 200);
-            Properties.Settings.Default.Save();
+            UpdateSetting("buttonsHidden", "false");
             }
 
         private void ResetSettings_Click(object sender, EventArgs e)
         {
-            Form2 frm = new Form2();
-            DialogResult questionResult = frm.ShowQuestionMessage();
-            if (questionResult == DialogResult.Yes)
-            {
-                Properties.Settings.Default.appLanguage = string.Empty;
-                Properties.Settings.Default.buttonsHidden = false;
-                Properties.Settings.Default.firstStart = true;
-                Properties.Settings.Default.Save();
-                frm.ShowInformationMessage();
-                Application.Restart();
-            }
+            Form2 languageForm = new Form2();
+            languageForm.ResetDefaultSettings();
         }
 
      ResourceManager rm = new ResourceManager("SimpleCalculator.ProjectResource", Assembly.GetExecutingAssembly());
@@ -156,19 +148,19 @@ private void CreateContextMenu()
             if (e.Modifiers == Keys.Control && e.KeyCode == Keys.B)
             {
                 e.SuppressKeyPress = true;
-                if (Properties.Settings.Default.buttonsHidden)
+                if (GetSettingValue("buttonsHidden") == "true")
                 {
-                    Properties.Settings.Default.buttonsHidden = false;
+                    UpdateSetting("buttonsHidden", "false");
                     ManipulateOperationButtonsVisibility();
                     TalkString(rm.GetString("buttonsShownMessage"));
                 }
                 else
                 {
-                    Properties.Settings.Default.buttonsHidden = true;
-                    ManipulateOperationButtonsVisibility();
+                    UpdateSetting("buttonsHidden", "true");
+ManipulateOperationButtonsVisibility();
                     TalkString(rm.GetString("buttonsHiddenMessage"));
                 }
-            }
+                }
         }
 
         decimal currentNum = 0;
@@ -425,7 +417,7 @@ numberText.SelectionStart = numberText.Text.Length;
 
         private void ManipulateOperationButtonsVisibility()
         {
-            if (Properties.Settings.Default.buttonsHidden)
+            if (GetSettingValue("buttonsHidden") == "true")
             {
                 HideButtons_click(new object(), new EventArgs());
             }
@@ -435,6 +427,26 @@ numberText.SelectionStart = numberText.Text.Length;
             }
         }
 
-    }
+        public void UpdateSetting(string key, string value)
+        {
+            mySettings.AppSettings.Settings[key].Value = value;
+            mySettings.Save();
+            }
+
+        public string GetSettingValue(string key)
+        {
+            return mySettings.AppSettings.Settings[key].Value;
+}
+        
+        public void InitializeSettings()
+        {
+            ExeConfigurationFileMap fileMap = new ExeConfigurationFileMap
+            {
+                ExeConfigFilename = "Settings.config"
+            };
+            mySettings = ConfigurationManager.OpenMappedExeConfiguration(fileMap, ConfigurationUserLevel.None) as Configuration;
+}
+
+}
 }
                     
