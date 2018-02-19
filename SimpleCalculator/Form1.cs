@@ -13,6 +13,7 @@ using System.Resources;
 using System.Reflection;
 using DavyKager;
 using System.Configuration;
+using System.Diagnostics;
 
 namespace SimpleCalculator
 {
@@ -37,6 +38,7 @@ private void CreateContextMenu()
         {
             CreateLanguageMenuItem();
             CreateResetSettingsMenuItem();
+            CreateOpenHelpMenuItem();
             myMenu.Opened += new EventHandler(MyMenu_Opened);
             myMenu.Closed += new ToolStripDropDownClosedEventHandler(MyMenu_Closed);
                     this.ContextMenuStrip = myMenu;
@@ -66,7 +68,19 @@ private void CreateContextMenu()
         resetSettings.Click += new EventHandler(ResetSettings_Click);
             myMenu.Items.Add(resetSettings);
         }
- 
+
+        private void CreateOpenHelpMenuItem()
+        {
+            ToolStripMenuItem openHelpFile = new ToolStripMenuItem
+            {
+                Text = rm.GetString("openHelpFileMenuItem"),
+                ShortcutKeys = Keys.Control | Keys.H,
+                ShowShortcutKeys = true
+            };
+            openHelpFile.Click += new EventHandler(OpenHelpFile_Click);
+            myMenu.Items.Add(openHelpFile);
+        }
+        
         private void MyMenu_Opened(object sender, EventArgs e)
         {
             if (GetSettingValue("buttonsHidden") == "true")
@@ -98,6 +112,7 @@ private void CreateContextMenu()
             myMenu.Items.Clear();
             CreateLanguageMenuItem();
             CreateResetSettingsMenuItem();
+            CreateOpenHelpMenuItem();
         }
         
         private void ChooseLanguage_Click(object sender, EventArgs e)
@@ -136,7 +151,19 @@ private void CreateContextMenu()
             languageForm.ResetDefaultSettings();
         }
 
-     ResourceManager rm = new ResourceManager("SimpleCalculator.ProjectResource", Assembly.GetExecutingAssembly());
+        private void OpenHelpFile_Click(object sender, EventArgs e)
+        {
+            if (CultureInfo.CurrentUICulture.TwoLetterISOLanguageName == "en")
+            {
+                Process.Start(@"Docs\User Guide EN.html");
+            }
+            else
+            {
+                Process.Start(@"Docs\User Guide BG.html");
+            }
+        }
+
+ResourceManager rm = new ResourceManager("SimpleCalculator.ProjectResource", Assembly.GetExecutingAssembly());
         
         private void Form1_Shortcuts(object sender, KeyEventArgs e)
         {

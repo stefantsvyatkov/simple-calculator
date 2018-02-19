@@ -171,6 +171,9 @@
   <data name="okButton" xml:space="preserve">
     <value>&amp;OK</value>
   </data>
+  <data name="openHelpFileMenuItem" xml:space="preserve">
+    <value>Open help file</value>
+  </data>
   <data name="percentButton" xml:space="preserve">
     <value>Percent</value>
   </data>
