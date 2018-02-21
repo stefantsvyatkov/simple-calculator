@@ -52,6 +52,7 @@ this.Text = rm.GetString("languageMenuItem");
                 mainForm.UpdateSetting("firstStart", "false");
                 Form1 frm = new Form1();
                 frm.Show();
+                this.Hide();
                 return;
             }
             mainForm.UpdateSetting("appLanguage", SetAppLanguage());

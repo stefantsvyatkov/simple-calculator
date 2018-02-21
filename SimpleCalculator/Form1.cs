@@ -32,7 +32,7 @@ public partial class Form1: Form
             }
 
         ContextMenuStrip myMenu = new ContextMenuStrip();
-        System.Configuration.Configuration mySettings = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
+        Configuration mySettings;
 
 private void CreateContextMenu()
         {
