@@ -417,7 +417,7 @@ private void ShowInvalidNumberMessage()
         
         private void ShowResultOutput()
         {
-            numberText.Text = currentNum.ToString();
+            numberText.Text = currentNum.ToString("0.##");
 numberText.SelectionStart = numberText.Text.Length;
             TalkString(numberText.Text);
             Clipboard.SetText(numberText.Text);
