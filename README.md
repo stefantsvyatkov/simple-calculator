@@ -1,10 +1,5 @@
-<!DOCTYPE html>
-<html>
-	
-<body>
-
 <h1>Simple Calculator 1.0 Beta<br />
-Short Instructions<br /></h1>
+Short Instructions</h1>
 
 <a name="toc1"></a>
 <h2>1. Introduction</h2>
@@ -45,10 +40,12 @@ The present version of Simple Calculator can be downloaded from <A Href="https:/
 </ul>
 
 <a name="toc5"></a>
-<h2>5. First start</h2>
+<h2>5. Installation and first start</h2>
 
 <p>
-In order to use this program, extract files from the archive "Simple Calculator 1.0 Beta.zip" and open "SimpleCalculator.exe". 
+In order to install this program, open "SimpleCalculator1.0BetaInstaller.exe", choose folder for application's files and activate the "Extract" button. After that navigate to the installation directory and run "SimpleCalculator.exe".
+</p>
+<p>
 If the program is started for first time, it shows welcome message and window for choosing language. Supported languages at the moment are english and bulgarian. When "OK" button is pressed, the language is being saved and the main window is shown.
 </p>
 <p>
@@ -158,7 +155,7 @@ The program has it's own context menu which can be activated by focusing some of
 After activating the "Result" button, the calculated value is announced by the screen readers JAWS and NVDA automatically.
 </p>
 <p>
-If number operations are made with the key combinations of the buttons, after pressing them, the screen reader reports the corresponding action.
+If number operations are made with the key combinations for the buttons, after pressing them, the screen reader reports the corresponding action.
 </p>
 <p><strong>
 Examples:
@@ -178,7 +175,8 @@ With showing and hiding the operation buttons by the combination Ctrl+B, the scr
 <li>Entering Intervals between numbers and operators is treated as invalid number (error message is shown and the text is deleted).</li>
 <li>Expressions as 3+5*7 are not supported and are perceived as invalid numbers. If you want to make more calculations, activate "Result" button after every operation.</li>
 <li>Pressing the "Clear" button returns the calculated number to it's default value, which is 0..</li>
-<li>The program can be closed with the Esc key or the standard combination Alt+F4.</li>
+<li>The present version of this program is fully portable. It don't change files on your system and can be started even from flash stick without negative influence over the functionality.</li>
+<li>The calculator can be closed with Esc key or the standard combination Alt+F4.</li>
 </ul>
 
 <a name="toc10"></a>
@@ -187,7 +185,3 @@ With showing and hiding the operation buttons by the combination Ctrl+B, the scr
 <p>
 For thoughts and suggestions about Simple Calculator, connect with me at <a href="mailto:stefcho.cvetkov@gmail.com">this</a> email.
 </p>
-
-</body>
-	
-</html>
