@@ -27,7 +27,10 @@ public partial class Form1: Form
                 CultureInfo.CurrentUICulture = CultureInfo.CreateSpecificCulture(GetSettingValue("appLanguage"));
             }
             InitializeComponent();
-            ManipulateOperationButtonsVisibility();
+            if (GetSettingValue("buttonsHidden") == "true")
+            {
+                HideButtons_click(new object(), new EventArgs());
+                }
             CreateContextMenu();
             }
 
@@ -83,7 +86,7 @@ private void CreateContextMenu()
         
         private void MyMenu_Opened(object sender, EventArgs e)
         {
-            if (GetSettingValue("buttonsHidden") == "true")
+            if (add.Visible == false)
             {
                 ToolStripMenuItem showButtons = new ToolStripMenuItem
                 {
@@ -130,7 +133,6 @@ private void CreateContextMenu()
                 percent.Visible = false;
                     this.Size = new System.Drawing.Size(300, 125);
                 result.Location = new Point(80, 50);
-            UpdateSetting("buttonsHidden", "true");
                 }
 
         private void ShowButtons_click(object sender, EventArgs e)
@@ -142,7 +144,6 @@ private void CreateContextMenu()
                 percent.Visible = true;
     this.Size = new System.Drawing.Size(300, 280);
                 result.Location = new Point(80, 200);
-            UpdateSetting("buttonsHidden", "false");
             }
 
         private void ResetSettings_Click(object sender, EventArgs e)
@@ -170,21 +171,27 @@ ResourceManager rm = new ResourceManager("SimpleCalculator.ProjectResource", Ass
             if (e.KeyCode == Keys.Escape)
             {
                 e.SuppressKeyPress = true;
+                if (add.Visible == false && GetSettingValue("buttonsHidden") != "true")
+                {
+                    UpdateSetting("buttonsHidden", "true");
+                }
+                else if (add.Visible == true && GetSettingValue("buttonsHidden") != "false")
+                {
+                    UpdateSetting("buttonsHidden", "false");
+                }
                 Environment.Exit(1);
             }
             if (e.Modifiers == Keys.Control && e.KeyCode == Keys.B)
             {
                 e.SuppressKeyPress = true;
-                if (GetSettingValue("buttonsHidden") == "true")
+                if (add.Visible == false)
                 {
-                    UpdateSetting("buttonsHidden", "false");
-                    ManipulateOperationButtonsVisibility();
+                    ShowButtons_click(new object(), new EventArgs());
                     TalkString(rm.GetString("buttonsShownMessage"));
                 }
                 else
                 {
-                    UpdateSetting("buttonsHidden", "true");
-ManipulateOperationButtonsVisibility();
+                    HideButtons_click(new object(), new EventArgs());
                     TalkString(rm.GetString("buttonsHiddenMessage"));
                 }
                 }
@@ -440,18 +447,6 @@ numberText.SelectionStart = numberText.Text.Length;
                 numberText.SelectionStart = numberText.Text.Length;
                 resultPressed = false;
                 }
-        }
-
-        private void ManipulateOperationButtonsVisibility()
-        {
-            if (GetSettingValue("buttonsHidden") == "true")
-            {
-                HideButtons_click(new object(), new EventArgs());
-            }
-            else
-            {
-                ShowButtons_click(new object(), new EventArgs());
-            }
         }
 
         public void UpdateSetting(string key, string value)
