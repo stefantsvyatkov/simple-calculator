@@ -92,7 +92,6 @@
             // 
             resources.ApplyResources(this.numberText, "numberText");
             this.numberText.Name = "numberText";
-            this.numberText.TextChanged += new System.EventHandler(this.NumberText_TextChanged);
             // 
             // percent
             // 

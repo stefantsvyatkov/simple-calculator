@@ -201,8 +201,7 @@ ResourceManager rm = new ResourceManager("SimpleCalculator.ProjectResource", Ass
         decimal secondNum = 0;
        string operation = string.Empty;
         bool operationMade = false;
-        bool operationButtonPressed = false;
-
+        
         private void GetCurrentNumber()
         {
             if (!CheckInputValidation(numberText.Text))
@@ -212,7 +211,6 @@ ResourceManager rm = new ResourceManager("SimpleCalculator.ProjectResource", Ass
             else
             {
                 operationMade = true;
-                operationButtonPressed = true;
                 currentNum = decimal.Parse(numberText.Text);
                 }
 numberText.Text = string.Empty;
@@ -228,7 +226,6 @@ numberText.Text = string.Empty;
             currentNum = 0;
             secondNum = 0;
             operationMade = false;
-            operationButtonPressed = true;
             operation = string.Empty;
             numberText.Text = string.Empty;
             numberText.Focus();
@@ -419,8 +416,6 @@ private void ShowInvalidNumberMessage()
             }
             return checker;
         }
-
-        bool resultPressed = false;
         
         private void ShowResultOutput()
         {
@@ -429,8 +424,7 @@ numberText.SelectionStart = numberText.Text.Length;
             TalkString(numberText.Text);
             Clipboard.SetText(numberText.Text);
             numberText.Focus();
-            resultPressed = true;
-        }
+            }
 
         private void TalkString(string text)
         {
@@ -438,16 +432,6 @@ numberText.SelectionStart = numberText.Text.Length;
             Tolk.Output(text, true);
             Tolk.Unload();
 }
-
-        private void NumberText_TextChanged(object sender, EventArgs e)
-        {
-            if (resultPressed && !operationButtonPressed)
-            {
-            numberText.Text = numberText.Text[numberText.Text.Length - 1].ToString();
-                numberText.SelectionStart = numberText.Text.Length;
-                resultPressed = false;
-                }
-        }
 
         public void UpdateSetting(string key, string value)
         {
