@@ -102,8 +102,8 @@
             // 
             // toolStripComboBox1
             // 
-            resources.ApplyResources(this.toolStripComboBox1, "toolStripComboBox1");
             this.toolStripComboBox1.Name = "toolStripComboBox1";
+            resources.ApplyResources(this.toolStripComboBox1, "toolStripComboBox1");
             // 
             // Form1
             // 

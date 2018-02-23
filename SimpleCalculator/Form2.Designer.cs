@@ -38,7 +38,7 @@
             // 
             this.language.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.language.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.language.Location = new System.Drawing.Point(72, 12);
+            this.language.Location = new System.Drawing.Point(75, 10);
             this.language.Name = "language";
             this.language.Size = new System.Drawing.Size(100, 21);
             this.language.Sorted = true;
@@ -47,7 +47,7 @@
             // ok
             // 
             this.ok.AutoSize = true;
-            this.ok.Location = new System.Drawing.Point(90, 30);
+            this.ok.Location = new System.Drawing.Point(80, 45);
             this.ok.Name = "ok";
             this.ok.Size = new System.Drawing.Size(53, 23);
             this.ok.TabIndex = 2;
@@ -59,7 +59,7 @@
             // 
             this.cancel.AutoSize = true;
             this.cancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.cancel.Location = new System.Drawing.Point(135, 30);
+            this.cancel.Location = new System.Drawing.Point(135, 45);
             this.cancel.Name = "cancel";
             this.cancel.Size = new System.Drawing.Size(53, 23);
             this.cancel.TabIndex = 3;
@@ -70,7 +70,7 @@
             // languageLabel
             // 
             this.languageLabel.AutoSize = true;
-            this.languageLabel.Location = new System.Drawing.Point(20, 10);
+            this.languageLabel.Location = new System.Drawing.Point(20, 14);
             this.languageLabel.Name = "languageLabel";
             this.languageLabel.Size = new System.Drawing.Size(35, 13);
             this.languageLabel.TabIndex = 0;
@@ -84,7 +84,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSize = true;
             this.CancelButton = this.cancel;
-            this.ClientSize = new System.Drawing.Size(184, 61);
+            this.ClientSize = new System.Drawing.Size(184, 66);
             this.Controls.Add(this.languageLabel);
             this.Controls.Add(this.cancel);
             this.Controls.Add(this.ok);
