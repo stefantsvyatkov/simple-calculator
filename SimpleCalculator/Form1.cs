@@ -14,6 +14,7 @@ using System.Reflection;
 using DavyKager;
 using System.Configuration;
 using System.Diagnostics;
+using System.Media;
 
 namespace SimpleCalculator
 {
@@ -32,6 +33,7 @@ public partial class Form1: Form
                 HideButtons_click(new object(), new EventArgs());
                 }
             CreateContextMenu();
+            numberText.KeyPress += new KeyPressEventHandler(NumberText_KeyPress);
             }
 
         ContextMenuStrip myMenu = new ContextMenuStrip();
@@ -314,7 +316,6 @@ private void Add_Click(object sender, EventArgs e)
                 currentNum = MakeCalculation(operation, currentNum, secondNum);
                 ShowResultOutput();
             operationMade = false;
-            operationButtonPressed = false;
                 }
 
         private decimal MakeCalculation(string operation, decimal currentNum, decimal resultNum)
@@ -344,22 +345,16 @@ private void Add_Click(object sender, EventArgs e)
         private bool CheckInputValidation(string text)
         {
             bool checker = true;
-            char separator = Convert.ToChar(CultureInfo.CurrentCulture.NumberFormat.NumberDecimalSeparator);
             char[] operators = new char[] { '+', '-', '*', '/', '%' };
             int operatorsCount = 0;
             for (int i = 0; i < text.Length; i++)
             {
-                if (!char.IsNumber(text[i]) && text[i] != separator && !operators.Contains(text[i]))
-                {
-                    checker = false;
-                    break;
-                }
                 if (operators.Contains(text[i]))
                 {
                     operatorsCount++;
                 }
             }
-            if (text == string.Empty || operatorsCount > 1)
+            if (text == string.Empty || (operatorsCount > 1 && numberText.Text[0] != '-'))
             {
                 checker = false;
             }
@@ -452,6 +447,17 @@ numberText.SelectionStart = numberText.Text.Length;
             };
             mySettings = ConfigurationManager.OpenMappedExeConfiguration(fileMap, ConfigurationUserLevel.None) as Configuration;
 }
+
+        private void NumberText_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            char separator = Convert.ToChar(CultureInfo.CurrentCulture.NumberFormat.NumberDecimalSeparator);
+            char[] allowedSymbols = new char[] { '+', '-', '*', '/', '%', separator};
+            if (!char.IsDigit(e.KeyChar) && !allowedSymbols.Contains(e.KeyChar) && e.KeyChar != 8)
+            {
+                SystemSounds.Beep.Play();
+                e.Handled = true;
+            }
+        }
 
 }
 }
