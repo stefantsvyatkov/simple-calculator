@@ -354,7 +354,9 @@ private void Add_Click(object sender, EventArgs e)
                     operatorsCount++;
                 }
             }
-            if (text == string.Empty || (operatorsCount > 1 && numberText.Text[0] != '-'))
+            bool checkForNegativeNumber = (operatorsCount > 1 && numberText.Text[0] != '-');
+            bool checkForInvalidFirstNumber = (currentNum == 0 && !char.IsDigit(numberText.Text[0]));
+            if (text == string.Empty || checkForInvalidFirstNumber || checkForNegativeNumber)
             {
                 checker = false;
             }
