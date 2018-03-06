@@ -34,6 +34,7 @@ public partial class Form1: Form
                 }
             CreateContextMenu();
             numberText.KeyPress += new KeyPressEventHandler(NumberText_KeyPress);
+            this.FormClosing += new FormClosingEventHandler(Form1_Closing);
             }
 
         ContextMenuStrip myMenu = new ContextMenuStrip();
@@ -173,16 +174,8 @@ ResourceManager rm = new ResourceManager("SimpleCalculator.ProjectResource", Ass
             if (e.KeyCode == Keys.Escape)
             {
                 e.SuppressKeyPress = true;
-                if (add.Visible == false && GetSettingValue("buttonsHidden") != "true")
-                {
-                    UpdateSetting("buttonsHidden", "true");
+                Clear_Click(new object(), new EventArgs());
                 }
-                else if (add.Visible == true && GetSettingValue("buttonsHidden") != "false")
-                {
-                    UpdateSetting("buttonsHidden", "false");
-                }
-                Environment.Exit(1);
-            }
             if (e.Modifiers == Keys.Control && e.KeyCode == Keys.B)
             {
                 e.SuppressKeyPress = true;
@@ -461,6 +454,18 @@ numberText.SelectionStart = numberText.Text.Length;
             }
         }
 
+        private void Form1_Closing(object sender, FormClosingEventArgs e)
+        {
+            if (add.Visible == false && GetSettingValue("buttonsHidden") != "true")
+            {
+                UpdateSetting("buttonsHidden", "true");
+            }
+            else if (add.Visible == true && GetSettingValue("buttonsHidden") != "false")
+            {
+                UpdateSetting("buttonsHidden", "false");
+            }
 }
+
+    }
 }
                     
