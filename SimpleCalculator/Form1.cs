@@ -196,21 +196,38 @@ ResourceManager rm = new ResourceManager("SimpleCalculator.ProjectResource", Ass
         decimal secondNum = 0;
        string operation = string.Empty;
         bool operationMade = false;
-        
-        private void GetCurrentNumber()
+        bool operationButtonPressed = false;
+        string previousOperation = string.Empty;
+
+        private void ProcessCurrentNumber()
         {
             if (!CheckInputValidation(numberText.Text))
             {
                 ShowInvalidNumberMessage();
+                ClearNumberTextField();
+                return;
             }
-            else
-            {
                 operationMade = true;
-                currentNum = decimal.Parse(numberText.Text);
+                operationButtonPressed = true;
+                if (!resultPressed)
+                {
+                if (currentNum == 0)
+                {
+                    currentNum = decimal.Parse(numberText.Text);
                 }
-numberText.Text = string.Empty;
-            numberText.Focus();
-        }
+                else
+                {
+                    secondNum = decimal.Parse(numberText.Text);
+                    currentNum = MakeCalculation(previousOperation, currentNum, secondNum);
+                    }
+            }
+                else
+                {
+                    resultPressed = false;
+                }
+            previousOperation = operation;
+            ClearNumberTextField();
+            }
 
             private void Clear_Click(object sender, EventArgs e)
         {
@@ -221,9 +238,10 @@ numberText.Text = string.Empty;
             currentNum = 0;
             secondNum = 0;
             operationMade = false;
+            operationButtonPressed = false;
+            resultPressed = false;
             operation = string.Empty;
-            numberText.Text = string.Empty;
-            numberText.Focus();
+            ClearNumberTextField();
             }
         
 private void Add_Click(object sender, EventArgs e)
@@ -233,7 +251,7 @@ private void Add_Click(object sender, EventArgs e)
             TalkString(rm.GetString("addButton"));
             }
             operation = "+";
-            GetCurrentNumber();
+            ProcessCurrentNumber();
                 }
         
         private void Subtract_Click(object sender, EventArgs e)
@@ -243,7 +261,7 @@ private void Add_Click(object sender, EventArgs e)
             TalkString(rm.GetString("subtractButton"));
             }
             operation = "-";
-            GetCurrentNumber();
+            ProcessCurrentNumber();
             }
 
         private void Multiply_Click(object sender, EventArgs e)
@@ -253,7 +271,7 @@ private void Add_Click(object sender, EventArgs e)
             TalkString(rm.GetString("multiplyButton"));
             }
             operation = "*";
-            GetCurrentNumber();
+            ProcessCurrentNumber();
 }
 
         private void Divide_Click(object sender, EventArgs e)
@@ -263,7 +281,7 @@ private void Add_Click(object sender, EventArgs e)
             TalkString(rm.GetString("divideButton"));
             }
             operation = "/";
-            GetCurrentNumber();
+            ProcessCurrentNumber();
 }
 
         private void Percent_Click(object sender, EventArgs e)
@@ -273,16 +291,27 @@ private void Add_Click(object sender, EventArgs e)
             TalkString(rm.GetString("percentButton"));
             }
             operation = "%";
-            GetCurrentNumber();
+            ProcessCurrentNumber();
 }
-        
+
+        bool resultPressed = false;
+
         private void Result_Click(object sender, EventArgs e)
         {
             if (!CheckInputValidation(numberText.Text))
             {
                 ShowInvalidNumberMessage();
-                numberText.Focus();
-                numberText.Text = string.Empty;
+                ClearNumberTextField();
+                return;
+            }
+            if (operationButtonPressed)
+            {
+                secondNum = decimal.Parse(numberText.Text);
+                currentNum = MakeCalculation(operation, currentNum, secondNum);
+                ShowResultOutput();
+                resultPressed = true;
+                operationButtonPressed = false;
+                operationMade = false;
                 return;
             }
             if (CheckTextForOperator(numberText.Text))
@@ -303,33 +332,28 @@ private void Add_Click(object sender, EventArgs e)
             {
                 ShowMakeOperationMessage();
                 numberText.Focus();
-                return;
-            }
-                secondNum = decimal.Parse(numberText.Text);
-                currentNum = MakeCalculation(operation, currentNum, secondNum);
-                ShowResultOutput();
-            operationMade = false;
+                }
                 }
 
-        private decimal MakeCalculation(string operation, decimal currentNum, decimal resultNum)
+        private decimal MakeCalculation(string operation, decimal currentNum, decimal secondNum)
         {
             switch (operation)
             {
                 case "+":
-                    currentNum += resultNum;
+                    currentNum += secondNum;
                     break;
                 case "-":
-                    currentNum -= resultNum;
+                    currentNum -= secondNum;
                     break;
                 case "*":
-                    currentNum *= resultNum;
+                    currentNum *= secondNum;
                     break;
                 case "/":
-                    currentNum /= resultNum;
+                    currentNum /= secondNum;
                     break;
                 case "%":
                     currentNum /= 100.0m;
-                    currentNum *= resultNum;
+                    currentNum *= secondNum;
                     break;
             }
             return currentNum;
@@ -464,6 +488,12 @@ numberText.SelectionStart = numberText.Text.Length;
             {
                 UpdateSetting("buttonsHidden", "false");
             }
+}
+
+        private void ClearNumberTextField()
+        {
+            numberText.Focus();
+            numberText.Text = string.Empty;
 }
 
     }
