@@ -134,8 +134,8 @@ private void CreateContextMenu()
                 multiply.Visible = false;
                 divide.Visible = false;
                 percent.Visible = false;
-                    this.Size = new System.Drawing.Size(300, 125);
-                result.Location = new Point(80, 50);
+                    this.Size = new System.Drawing.Size(240, 130);
+                result.Location = new Point(60, 60);
                 }
 
         private void ShowButtons_click(object sender, EventArgs e)
@@ -145,8 +145,8 @@ private void CreateContextMenu()
                 multiply.Visible = true;
                 divide.Visible = true;
                 percent.Visible = true;
-    this.Size = new System.Drawing.Size(300, 280);
-                result.Location = new Point(80, 200);
+    this.Size = new System.Drawing.Size(240, 280);
+                result.Location = new Point(60, 210);
             }
 
         private void ResetSettings_Click(object sender, EventArgs e)
@@ -190,6 +190,39 @@ ResourceManager rm = new ResourceManager("SimpleCalculator.ProjectResource", Ass
                     TalkString(rm.GetString("buttonsHiddenMessage"));
                 }
                 }
+            if (e.Modifiers == Keys.Control && e.KeyCode == Keys.A)
+            {
+                if (numberText.Text != string.Empty)
+                {
+                    e.SuppressKeyPress = true;
+                    numberText.SelectAll();
+                }
+            }
+            if (e.Modifiers == Keys.Control && e.KeyCode == Keys.V)
+            {
+                e.SuppressKeyPress = true;
+                numberText.Text += Clipboard.GetText();
+                TalkString(numberText.Text);
+                numberText.SelectionStart = numberText.Text.Length;
+            }
+            if (e.Modifiers == Keys.Control && e.KeyCode == Keys.C)
+            {
+                if (numberText.Text != string.Empty)
+                {
+                    e.SuppressKeyPress = true;
+                    Clipboard.SetText(numberText.SelectedText);
+                }
+            }
+            if (e.Modifiers == Keys.Control && e.KeyCode == Keys.X)
+            {
+                if (numberText.Text != string.Empty)
+                {
+                    e.SuppressKeyPress = true;
+                    Clipboard.SetText(numberText.SelectedText);
+                    numberText.Text = numberText.Text.Replace(numberText.SelectedText, string.Empty);
+                    numberText.SelectionStart = numberText.Text.Length;
+                }
+            }
         }
 
         decimal currentNum = 0;
@@ -201,14 +234,15 @@ ResourceManager rm = new ResourceManager("SimpleCalculator.ProjectResource", Ass
 
         private void ProcessCurrentNumber()
         {
+            operationButtonPressed = true;
             if (!CheckInputValidation(numberText.Text))
             {
                 ShowInvalidNumberMessage();
                 ClearNumberTextField();
+                operationButtonPressed = false;
                 return;
             }
                 operationMade = true;
-                operationButtonPressed = true;
                 if (!resultPressed)
                 {
                 if (currentNum == 0)
@@ -306,24 +340,20 @@ private void Add_Click(object sender, EventArgs e)
             }
             if (operationButtonPressed)
             {
-                secondNum = decimal.Parse(numberText.Text);
-                currentNum = MakeCalculation(operation, currentNum, secondNum);
-                ShowResultOutput();
-                resultPressed = true;
-                operationButtonPressed = false;
-                operationMade = false;
-                return;
-            }
+                    secondNum = decimal.Parse(numberText.Text);
+                    currentNum = MakeCalculation(operation, currentNum, secondNum);
+                    ShowResultOutput();
+                    resultPressed = true;
+                    operationButtonPressed = false;
+                    operationMade = false;
+                    return;
+                }
             if (CheckTextForOperator(numberText.Text))
             {
                 operationMade = true;
-                operation = numberText.Text[GetOperatorIndex(numberText.Text)].ToString();
-                secondNum = decimal.Parse(numberText.Text.Substring(GetOperatorIndex(numberText.Text) + 1, (numberText.Text.Length - 1) - GetOperatorIndex(numberText.Text)));
-                if (GetOperatorIndex(numberText.Text) > 0)
-                {
-                    currentNum = decimal.Parse(numberText.Text.Substring(0, GetOperatorIndex(numberText.Text)));
-                }
-                currentNum = MakeCalculation(operation, currentNum, secondNum);
+                List<decimal> numbers = TakeExpressionNumbers(numberText.Text);
+                List<string> operatorsList = TakeExpressionOperators(numberText.Text);
+                CalculateExpression(numbers, operatorsList);
                 ShowResultOutput();
                 operationMade = false;
                 return;
@@ -337,6 +367,11 @@ private void Add_Click(object sender, EventArgs e)
 
         private decimal MakeCalculation(string operation, decimal currentNum, decimal secondNum)
         {
+            if (currentNum == 0 && (operation == "*" || operation == "/" || operation == "%"))
+            {
+                currentNum = 0;
+                return currentNum;
+            }
             switch (operation)
             {
                 case "+":
@@ -355,29 +390,111 @@ private void Add_Click(object sender, EventArgs e)
                     currentNum /= 100.0m;
                     currentNum *= secondNum;
                     break;
-            }
+                    }
             return currentNum;
         }
+
+        char[] operators = new char[] { '+', '-', '*', '/', '%' };
+        char separator = Convert.ToChar(CultureInfo.CurrentCulture.NumberFormat.NumberDecimalSeparator);
 
         private bool CheckInputValidation(string text)
         {
             bool checker = true;
-            char[] operators = new char[] { '+', '-', '*', '/', '%' };
-            int operatorsCount = 0;
-            for (int i = 0; i < text.Length; i++)
+            if (text == string.Empty)
             {
-                if (operators.Contains(text[i]))
-                {
-                    operatorsCount++;
-                }
+                checker = false;
+                return checker;
             }
-            bool checkForNegativeNumber = (operatorsCount > 1 && numberText.Text[0] != '-');
-            bool checkForInvalidFirstNumber = (currentNum == 0 && !char.IsDigit(numberText.Text[0]));
-            if (text == string.Empty || checkForInvalidFirstNumber || checkForNegativeNumber)
+            if (text[0] == separator)
+            {
+                checker = false;
+                return checker;
+}
+            if (operationButtonPressed && !decimal.TryParse(numberText.Text, out decimal num))
+            {
+                checker = false;
+                return checker;
+            }
+                    for (int i = 0; i < text.Length - 1; i++)
+            {
+                bool checkCurrentAndNextSymbol = (operators.Contains(text[i]) || (text[i] == separator)) && (operators.Contains(text[i + 1]) || (text[i + 1] == separator));
+if (checkCurrentAndNextSymbol)
+                {
+                    checker = false;
+                    return checker;
+                    }
+            }
+            if (!char.IsDigit(text[text.Length - 1]))
             {
                 checker = false;
             }
             return checker;
+}
+
+        private bool CheckFirstSymbolForOperator()
+        {
+            return operators.Contains(numberText.Text[0]);
+            }
+
+private List<decimal> TakeExpressionNumbers(string text)
+        {
+            List<decimal> numbers = new List<decimal>();
+            if (CheckFirstSymbolForOperator())
+            {
+                text = text.Substring(1, text.Length - 1);
+            }
+                numbers = text.Split(operators)
+                .Select(decimal.Parse)
+                .ToList();
+return numbers;
+}
+
+        private List<string> TakeExpressionOperators(string text)
+        {
+            List<string> operatorsList = new List<string>();
+            foreach (char symbol in text)
+            {
+                if (operators.Contains(symbol))
+                {
+                    operatorsList.Add(symbol.ToString());
+                }
+            }
+            return operatorsList;
+}
+
+        private void CalculateExpression(List<decimal> numbers, List<string> operatorsList)
+        {
+            for (int i = 0; i < numbers.Count; i++)
+            {
+                int operatorIndex = i - 1;
+                bool currentNumIsNegative = (currentNum < 0 && (numberText.Text[0] == '-'));
+                if ((i == 0) && (numbers.Count > 1) && currentNumIsNegative)
+                {
+                    continue;
+                }
+                if (i == 0)
+                {
+if (CheckFirstSymbolForOperator())
+                    {
+                            currentNum = MakeCalculation(operatorsList[0], currentNum, numbers[i]);
+                        operatorsList.RemoveAt(0);
+                        continue;
+                    }
+                    currentNum = numbers[0];
+                }
+                else
+                {
+                    if ((operatorIndex != operatorsList.Count - 1) && (operatorsList[operatorIndex + 1] == "%"))
+                    {
+                        decimal percentValue = MakeCalculation("%", numbers[i], numbers[i + 1]);
+                        currentNum = MakeCalculation(operatorsList[operatorIndex], currentNum, percentValue);
+                        operatorsList.RemoveAt(operatorIndex + 1);
+                        numbers.RemoveAt(i + 1);
+                        continue;
+                    }
+                    currentNum = MakeCalculation(operatorsList[operatorIndex], currentNum, numbers[i]);
+                }
+            }
 }
 
 private void ShowInvalidNumberMessage()
@@ -394,39 +511,16 @@ private void ShowInvalidNumberMessage()
             MessageBox.Show(messageStr, messageTitle, MessageBoxButtons.OK, MessageBoxIcon.Error);
 }
 
-        private int GetOperatorIndex(string text)
-        {
-            int index = 0;
-            for (int i = 0; i < text.Length; i++)
-            {
-                switch (text[i])
-                {
-                    case '+':
-                    case '-':
-                    case '*':
-                    case '/':
-                    case '%':
-                       index = i;
-                        break;
-                        }
-            }
-            return index;
-}
-
         private bool CheckTextForOperator(string text)
         {
             bool checker = false;
             for (int i = 0; i < text.Length; i++)
             {
-                if (text[i] == '+' || text[i] == '-' || text[i] == '*' || text[i] == '/' || text[i] == '%')
+                if (operators.Contains(text[i]))
                 {
                     checker = true;
                     break;
                 }
-            }
-            if (GetOperatorIndex(text) == text.Length - 1)
-            {
-                checker = false;
             }
             return checker;
         }
@@ -469,9 +563,7 @@ numberText.SelectionStart = numberText.Text.Length;
 
         private void NumberText_KeyPress(object sender, KeyPressEventArgs e)
         {
-            char separator = Convert.ToChar(CultureInfo.CurrentCulture.NumberFormat.NumberDecimalSeparator);
-            char[] allowedSymbols = new char[] { '+', '-', '*', '/', '%', separator};
-            if (!char.IsDigit(e.KeyChar) && !allowedSymbols.Contains(e.KeyChar) && e.KeyChar != 8)
+            if (!char.IsDigit(e.KeyChar) && !operators.Contains(e.KeyChar) && e.KeyChar != separator && e.KeyChar != 8)
             {
                 SystemSounds.Beep.Play();
                 e.Handled = true;

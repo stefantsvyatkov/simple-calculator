@@ -123,7 +123,7 @@
   </data>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
   <data name="numberLabel.Location" type="System.Drawing.Point, System.Drawing">
-    <value>20, 23</value>
+    <value>15, 10</value>
   </data>
   <data name="numberLabel.Size" type="System.Drawing.Size, System.Drawing">
     <value>44, 13</value>
@@ -147,10 +147,10 @@
     <value>8</value>
   </data>
   <data name="clear.Location" type="System.Drawing.Point, System.Drawing">
-    <value>185, 18</value>
+    <value>145, 30</value>
   </data>
   <data name="clear.Size" type="System.Drawing.Size, System.Drawing">
-    <value>75, 23</value>
+    <value>75, 20</value>
   </data>
   <data name="clear.TabIndex" type="System.Int32, mscorlib">
     <value>2</value>
@@ -171,7 +171,7 @@
     <value>7</value>
   </data>
   <data name="add.Location" type="System.Drawing.Point, System.Drawing">
-    <value>80, 50</value>
+    <value>60, 60</value>
   </data>
   <data name="add.Size" type="System.Drawing.Size, System.Drawing">
     <value>75, 23</value>
@@ -195,7 +195,7 @@
     <value>6</value>
   </data>
   <data name="subtract.Location" type="System.Drawing.Point, System.Drawing">
-    <value>80, 80</value>
+    <value>60, 90</value>
   </data>
   <data name="subtract.Size" type="System.Drawing.Size, System.Drawing">
     <value>75, 23</value>
@@ -219,7 +219,7 @@
     <value>5</value>
   </data>
   <data name="multiply.Location" type="System.Drawing.Point, System.Drawing">
-    <value>80, 110</value>
+    <value>60, 120</value>
   </data>
   <data name="multiply.Size" type="System.Drawing.Size, System.Drawing">
     <value>75, 23</value>
@@ -243,7 +243,7 @@
     <value>4</value>
   </data>
   <data name="divide.Location" type="System.Drawing.Point, System.Drawing">
-    <value>80, 140</value>
+    <value>60, 150</value>
   </data>
   <data name="divide.Size" type="System.Drawing.Size, System.Drawing">
     <value>75, 23</value>
@@ -267,7 +267,7 @@
     <value>3</value>
   </data>
   <data name="result.Location" type="System.Drawing.Point, System.Drawing">
-    <value>80, 200</value>
+    <value>60, 210</value>
   </data>
   <data name="result.Size" type="System.Drawing.Size, System.Drawing">
     <value>75, 23</value>
@@ -298,10 +298,10 @@
     <value>Off</value>
   </data>
   <data name="numberText.Location" type="System.Drawing.Point, System.Drawing">
-    <value>80, 20</value>
+    <value>15, 30</value>
   </data>
   <data name="numberText.Size" type="System.Drawing.Size, System.Drawing">
-    <value>100, 20</value>
+    <value>120, 20</value>
   </data>
   <data name="numberText.TabIndex" type="System.Int32, mscorlib">
     <value>1</value>
@@ -319,7 +319,7 @@
     <value>1</value>
   </data>
   <data name="percent.Location" type="System.Drawing.Point, System.Drawing">
-    <value>80, 170</value>
+    <value>60, 180</value>
   </data>
   <data name="percent.Size" type="System.Drawing.Size, System.Drawing">
     <value>75, 23</value>
@@ -358,7 +358,7 @@
     <value>GrowAndShrink</value>
   </data>
   <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing">
-    <value>284, 241</value>
+    <value>224, 241</value>
   </data>
   <data name="$this.StartPosition" type="System.Windows.Forms.FormStartPosition, System.Windows.Forms">
     <value>CenterScreen</value>
