@@ -120,6 +120,15 @@
   <data name="addButton" xml:space="preserve">
     <value>Add</value>
   </data>
+  <data name="autoCopyingMenuItem" xml:space="preserve">
+    <value>Copy result automatically</value>
+  </data>
+  <data name="autoCopyingOffMessage" xml:space="preserve">
+    <value>Auto copying off.</value>
+  </data>
+  <data name="autoCopyingOnMessage" xml:space="preserve">
+    <value>Auto copying on.</value>
+  </data>
   <data name="buttonsHiddenMessage" xml:space="preserve">
     <value>Buttons are hidden.</value>
   </data>

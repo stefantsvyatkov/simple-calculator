@@ -32,6 +32,10 @@ public partial class Form1: Form
             {
                 HideButtons_click(new object(), new EventArgs());
                 }
+            if (GetSettingValue("autoCopying") == "true")
+            {
+                autoCopyingChecker = true;
+            }
             CreateContextMenu();
             numberText.KeyPress += new KeyPressEventHandler(NumberText_KeyPress);
             this.FormClosing += new FormClosingEventHandler(Form1_Closing);
@@ -87,8 +91,25 @@ private void CreateContextMenu()
             myMenu.Items.Add(openHelpFile);
         }
         
-        private void MyMenu_Opened(object sender, EventArgs e)
+    private void CreateAutoCopyingMenuItem()
+    {
+        ToolStripMenuItem autoCopying = new ToolStripMenuItem
         {
+            Text = rm.GetString("autoCopyingMenuItem"),
+            ShortcutKeys = Keys.Control | Keys.Shift | Keys.C,
+            ShowShortcutKeys = true
+        };
+            if (autoCopyingChecker)
+            {
+                autoCopying.Checked = true;
+            }
+        autoCopying.Click += new EventHandler(AutoCopying_Click);
+        myMenu.Items.Add(autoCopying);
+    }
+
+    private void MyMenu_Opened(object sender, EventArgs e)
+        {
+            CreateAutoCopyingMenuItem();
             if (add.Visible == false)
             {
                 ToolStripMenuItem showButtons = new ToolStripMenuItem
@@ -119,7 +140,7 @@ private void CreateContextMenu()
             CreateLanguageMenuItem();
             CreateResetSettingsMenuItem();
             CreateOpenHelpMenuItem();
-        }
+            }
         
         private void ChooseLanguage_Click(object sender, EventArgs e)
         {
@@ -167,6 +188,20 @@ private void CreateContextMenu()
             }
         }
 
+        bool autoCopyingChecker = false;
+
+        private void AutoCopying_Click(object sender, EventArgs e)
+        {
+            if (!autoCopyingChecker)
+            {
+                autoCopyingChecker = true;
+            }
+            else
+            {
+                autoCopyingChecker = false;
+            }
+}
+
 ResourceManager rm = new ResourceManager("SimpleCalculator.ProjectResource", Assembly.GetExecutingAssembly());
         
         private void Form1_Shortcuts(object sender, KeyEventArgs e)
@@ -190,6 +225,20 @@ ResourceManager rm = new ResourceManager("SimpleCalculator.ProjectResource", Ass
                     TalkString(rm.GetString("buttonsHiddenMessage"));
                 }
                 }
+            if (e.Modifiers == (Keys.Control | Keys.Shift) && e.KeyCode == Keys.C)
+            {
+                    e.SuppressKeyPress = true;
+                if (!autoCopyingChecker)
+                {
+                    TalkString(rm.GetString("autoCopyingOnMessage"));
+                    AutoCopying_Click(new object(), new EventArgs());
+                }
+                else
+                {
+                    TalkString(rm.GetString("autoCopyingOffMessage"));
+                    AutoCopying_Click(new object(), new EventArgs());
+}
+            }
             if (e.Modifiers == Keys.Control && e.KeyCode == Keys.A)
             {
                 if (numberText.Text != string.Empty)
@@ -530,7 +579,10 @@ private void ShowInvalidNumberMessage()
             numberText.Text = currentNum.ToString("G29");
 numberText.SelectionStart = numberText.Text.Length;
             TalkString(numberText.Text);
-            Clipboard.SetText(numberText.Text);
+            if (autoCopyingChecker)
+            {
+                Clipboard.SetText(numberText.Text);
+            }
             numberText.Focus();
             }
 
@@ -572,15 +624,23 @@ numberText.SelectionStart = numberText.Text.Length;
 
         private void Form1_Closing(object sender, FormClosingEventArgs e)
         {
-            if (add.Visible == false && GetSettingValue("buttonsHidden") != "true")
-            {
-                UpdateSetting("buttonsHidden", "true");
+                if (add.Visible == false && GetSettingValue("buttonsHidden") != "true")
+                {
+                    UpdateSetting("buttonsHidden", "true");
+                }
+                else if (add.Visible == true && GetSettingValue("buttonsHidden") != "false")
+                {
+                    UpdateSetting("buttonsHidden", "false");
+                }
+                if (autoCopyingChecker && GetSettingValue("autoCopying") != "true")
+                {
+                    UpdateSetting("autoCopying", "true");
+                }
+                else if (!autoCopyingChecker && GetSettingValue("autoCopying") != "false")
+                {
+                    UpdateSetting("autoCopying", "false");
+                }
             }
-            else if (add.Visible == true && GetSettingValue("buttonsHidden") != "false")
-            {
-                UpdateSetting("buttonsHidden", "false");
-            }
-}
 
         private void ClearNumberTextField()
         {

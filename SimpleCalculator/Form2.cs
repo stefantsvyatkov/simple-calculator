@@ -116,12 +116,13 @@ this.Text = rm.GetString("languageMenuItem");
             DialogResult questionResult = ShowQuestionMessage();
             if (questionResult == DialogResult.Yes)
             {
-               mainForm.UpdateSetting("appLanguage", string.Empty);
+                ShowInformationMessage();
+                mainForm.UpdateSetting("appLanguage", string.Empty);
                mainForm.UpdateSetting("buttonsHidden", "false");
                mainForm.UpdateSetting("firstStart", "true");
-                ShowInformationMessage();
+                mainForm.UpdateSetting("autoCopying", "false");
                 Application.Restart();
-            }
+                }
 }
 
     }

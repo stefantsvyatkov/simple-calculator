@@ -120,6 +120,15 @@
   <data name="addButton" xml:space="preserve">
     <value>Плюс</value>
   </data>
+  <data name="autoCopyingMenuItem" xml:space="preserve">
+    <value>Автоматично копиране на резултата</value>
+  </data>
+  <data name="autoCopyingOffMessage" xml:space="preserve">
+    <value>Автоматичното копиране е изключено.</value>
+  </data>
+  <data name="autoCopyingOnMessage" xml:space="preserve">
+    <value>Автоматичното копиране е включено.</value>
+  </data>
   <data name="buttonsHiddenMessage" xml:space="preserve">
     <value>Бутоните са скрити.</value>
   </data>
