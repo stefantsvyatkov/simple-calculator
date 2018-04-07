@@ -1,5 +1,5 @@
-<h1>Simple Calculator 1.0 Beta<br />
-Short Instructions</h1>
+<h1>Simple Calculator 1.1<br />
+Short Instructions<br />
 
 <a name="toc1"></a>
 <h2>1. Introduction</h2>
@@ -14,6 +14,10 @@ This program is elementary desktop calculator for Windows written with C# langua
 <li>Division - Alt+D</li>
 <li>Calculating a percent value - Alt+P</li>
 </ul>
+</p>
+<p>
+The program also can process number expressions, which will be discussed later in this document.
+</p>
 
 <a name="toc2"></a>
 <h2>2. License</h2>
@@ -43,7 +47,7 @@ The present version of Simple Calculator can be downloaded from <A Href="https:/
 <h2>5. Installation and first start</h2>
 
 <p>
-In order to install this program, open "SimpleCalculator1.0Beta2Installer.exe", choose folder for application's files and activate the "Extract" button. After that navigate to the installation directory and run "SimpleCalculator.exe".
+In order to install this program, open "SimpleCalculator1.1Installer.exe", choose folder for application's files and activate the "Extract" button. After that navigate to the installation directory and run "SimpleCalculator.exe".
 </p>
 <p>
 If the program is started for first time, it shows welcome message and window for choosing language. Supported languages at the moment are english and bulgarian. When "OK" button is pressed, the language is being saved and the main window is shown.
@@ -66,7 +70,7 @@ They can be made by using the corresponding buttons and/or entering of the opera
 To make calculation, firstly enter a number and activate some of the buttons "Add", "Subtract", "Multiply", "Divide" or "Percent". This can be made by focusing the button and pressing Enter or the associated key combination. When some control (button or text box) is focused, the screen readers JAWS and NVDA report it's key shortcut.
 </p>
 <p>
-After entering a number and choosing operation, the focus returns at the text box and second number must be entered. In the end activate the "Result" button.
+After entering a number and choosing operation, the focus returns at the text box and second number must be entered. You can press another operation button and enter next number or activate the "Result" button.
 </p>
 <p><strong>
 Example:
@@ -80,20 +84,20 @@ To multiply 5 by 4,8, firstly enter 5, activate "Multiply" button, write 4,8 and
 <li>the combination Alt+R</li>
 </ul>
 <p>
-After activating this button, the result of the calculation will be shown in the text box and copied to the clipboard automatically. It also can be operated with other numbers infinitely.
+After activating this button, the result of the calculation will be shown in the text box. It also can be operated with other numbers infinitely.
 </p>
 <p><strong>
 Example:
 </p></strong>
 <p>
-From some calculation the result is 3,1. We can multiply it by 10, after that to subtract 2 and so on. For every operation the "Result" button must be activated.
+From some calculation the result is 3,1. We can multiply it by 10, after that to subtract 2 and so on. In the end activate the "Result" button.
 </p>
 
 <a name="toc62"></a>
 <h3>6.2. Calculating by entering the operation signs</h3>
 
 <p>
-The program allows entering the operation signs in the text box directly, without pressing of the corresponding buttons. These signs are:
+The program allows entering the operation signs in the text box directly, without pressing of the corresponding buttons. It gives the possibility for calculating number expressions. The operation signs which can be used are:
 </p>
 <ul>
 <li>+ - addition</li>
@@ -103,16 +107,7 @@ The program allows entering the operation signs in the text box directly, withou
 <li>% - calculating a percent value</li>
 </ul>
 <p>
-In order to make calculation in this way do the following:
-</p>
-<p>
-Enter first number, operation sign and second number.
-</p>
-<p><strong>
-Example:
-</p></strong>
-<p>
-To multiply 5 by 3,8, write "5*3,8", press enter and the result is 20,14. If you want to operate it with other number, enter operation sign and second number directly after the result and press Enter again.
+In order to make calculation in this way, enter expression as "3+7" and press enter. More complex expressions as "3+2+5-8*2/3.14" also can be calculated.
 </p>
 
 <a name="toc63"></a>
@@ -133,8 +128,9 @@ The program has it's own context menu which can be activated by focusing some of
 </p>
 <ul>
 <li>"Choose language" - shows window for choosing language. The confirmation can be made by activating "OK" button or pressing Enter.</li>
-<li>"Open the help file" - according to the application's language opens the present file in English or Bulgarian.</li>
 <li>"Reset default settings" - After activating this command, confirmation is required. If it's made, the calculator returns to the state before first start.</li>
+<li>"Open the help file" - according to the application's language opens the present file in English or Bulgarian.</li>
+<li>"Copy result automatically" - If it is checked, the result from every calculation is copied to the clipboard.</li>
 <li>"Hide/Show operation buttons" - If the program is used mainly by entering the operation signs at the text box directly, the corresponding buttons can be hidden for easier use. When they are active the command is "Hide operation buttons", and in the reverse case it changes to "Show operation buttons".</li>
 </ul>
 
@@ -143,8 +139,9 @@ The program has it's own context menu which can be activated by focusing some of
 
 <ul>
 <li>Ctrl+L - "Choose language"</li>
-<li>Ctrl+H - "Open the help file"</li>
 <li>Ctrl+R - "Reset default settings"</li>
+<li>Ctrl+H - "Open the help file"</li>
+<li>Ctrl+Shift+C - "Copy result automatically"</li>
 <li>Ctrl+B - "Hide/Show operation buttons"</li>
 </ul>
 
@@ -161,22 +158,23 @@ If number operations are made with the key combinations for the buttons, after p
 Examples:
 </p></strong>
 <p>
-For Alt+P, "Add" is announced, for Alt+S - "Subtract" and so on.
+For Alt+A, "Add" is announced, for Alt+S - "Subtract" and so on.
 </p>
 <p>
 With showing and hiding the operation buttons by the combination Ctrl+B, the screen reader reports this with the messages "Buttons are hidden", "Buttons are shown".
+</p>
+<p>
+When the option "Copy result automatically" is changed by the combination Ctrl+Shift+C, it's reported by the messages "Auto copying on.", "Auto copying off.".
 </p>
 
 <a name="toc9"></a>
 <h2>9. Notes</h2>
 
 <ul>
-<li>When the program is used incorrectly, it shows error message which invite the user to make an operation or to enter a valid number.</li>
-<li>The program is designed to accept only these symbols which are needed for it's work. For example, if you try to enter letter or other prohibited symbol, "beep" will be played and the symbol won't be entered. If you write invalid combination of digits and operators, activating of the "Result" button will cause showing of error message and the text will be deleted.</li>
-<li>Expressions as 3+5*7 are not supported and are perceived as invalid numbers. If you want to make more calculations, activate "Result" button after every operation.</li>
-<li>Pressing the "Clear" button returns the calculated number to it's default value, which is 0..</li>
+<li>When the program is used incorrectly, it shows error message which invites the user to make an operation or to enter a valid number.</li>
+<li>The calculator is designed to accept only these symbols which are needed for it's work. For example, if you try to enter letter or other prohibited symbol, "beep" will be played and the symbol won't be entered. If you write invalid combination of digits and operators, activating of the "Result" button will cause showing of error message and the text will be deleted.</li>
+<li>Pressing the "Clear" button returns the calculated number to it's default value, which is 0. This button can be activated with the Escape key.</li>
 <li>The present version of this program is fully portable. It don't change files on your system and can be started even from flash stick without negative influence over the functionality.</li>
-<li>The calculator can be closed with Esc key or the standard combination Alt+F4.</li>
 </ul>
 
 <a name="toc10"></a>
