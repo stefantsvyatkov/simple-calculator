@@ -615,12 +615,19 @@ numberText.SelectionStart = numberText.Text.Length;
 
         private void NumberText_KeyPress(object sender, KeyPressEventArgs e)
         {
-            if (!char.IsDigit(e.KeyChar) && !operators.Contains(e.KeyChar) && e.KeyChar != separator && e.KeyChar != 8)
+            if (e.KeyChar == ',' || e.KeyChar == '.')
+            {
+                e.Handled = true;
+                numberText.Text += separator;
+                numberText.SelectionStart = numberText.Text.Length;
+                return;
+            }
+if (!char.IsDigit(e.KeyChar) && !operators.Contains(e.KeyChar) && e.KeyChar != separator && e.KeyChar != 8)
             {
                 SystemSounds.Beep.Play();
                 e.Handled = true;
             }
-        }
+            }
 
         private void Form1_Closing(object sender, FormClosingEventArgs e)
         {
